@@ -15,9 +15,13 @@ import (
 
 var collection *mongo.Collection
 
+var collection2 *mongo.Collection
+
 const database = "devlink"
 
 const colName = "Users"
+
+const colName2 = "Events"
 
 func ConnDB() *mongo.Client {
 	err := godotenv.Load()
@@ -33,27 +37,55 @@ func ConnDB() *mongo.Client {
 
 	collection = client.Database(database).Collection(colName)
 
+	collection2 = client.Database(database).Collection(colName2)
+
 	return client
 }
 
-func insertUser(user models.User) {
+func insertUser(user models.User) *mongo.InsertOneResult {
 	user.Id = primitive.NewObjectID()
 	insertone, err := collection.InsertOne(context.TODO(), user)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Inserted a single document: %+v\n", insertone.InsertedID)
+	return insertone
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
+	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 
 	var user models.User
 
 	_ = json.NewDecoder(r.Body).Decode(&user)
-	insertUser(user)
-	err := json.NewEncoder(w).Encode(user)
+	response := insertUser(user)
+	err := json.NewEncoder(w).Encode(response)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func insertEvent(event models.EventInfo) *mongo.InsertOneResult {
+	event.EventId = primitive.NewObjectID()
+	insertone, err := collection2.InsertOne(context.TODO(), event)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Inserted a single document: ", insertone.InsertedID)
+	return insertone
+}
+
+func CreateEvent(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+
+	var event models.EventInfo
+
+	_ = json.NewDecoder(r.Body).Decode(&event)
+	response := insertEvent(event)
+	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		panic(err)
 	}

@@ -13,6 +13,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", hello)
 	mux.HandleFunc("/insert", controller.CreateUser)
+	mux.HandleFunc("/event", controller.CreateEvent)
 
 	db := controller.ConnDB()
 
