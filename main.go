@@ -12,6 +12,7 @@ var db *mongo.Client
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", hello)
+	mux.HandleFunc("/insert", controller.CreateUser)
 
 	db := controller.ConnDB()
 
