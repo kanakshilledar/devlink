@@ -14,7 +14,7 @@ type User struct {
 }
 
 type EventInfo struct {
-	EventId     primitive.ObjectID `json:"event_id" bson:"event_id"`
+	EventId     primitive.ObjectID `json:"event_id" bson:"_id"`
 	EventName   string             `json:"event_name"`
 	StartDate   string             `json:"start_date"`
 	EndDate     string             `json:"end_date"`
