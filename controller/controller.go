@@ -1,55 +1,22 @@
 package controller
 
 import (
-	"context"
+	"devlink/handler"
 	"devlink/models"
 	"encoding/json"
-	"fmt"
-	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"log"
 	"net/http"
-	"os"
 )
 
 var collection *mongo.Collection
-
 var collection2 *mongo.Collection
 
-const database = "devlink"
-
-const colName = "Users"
-
-const colName2 = "Events"
-
-func ConnDB() *mongo.Client {
-	err := godotenv.Load()
+func LandingPage(w http.ResponseWriter, r *http.Request) {
+	_, err := w.Write([]byte("Hello Devlink!"))
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	clientoption := options.Client().ApplyURI(os.Getenv("CONN"))
-	client, err := mongo.Connect(context.TODO(), clientoption)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Connected Successfully to the Cluster !!")
-
-	collection = client.Database(database).Collection(colName)
-
-	collection2 = client.Database(database).Collection(colName2)
-
-	return client
-}
-
-func insertUser(user models.User) *mongo.InsertOneResult {
-	user.Id = primitive.NewObjectID()
-	insertone, err := collection.InsertOne(context.TODO(), user)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Inserted a single document: %+v\n", insertone.InsertedID)
-	return insertone
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
@@ -57,24 +24,12 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 
 	var user models.User
-
 	_ = json.NewDecoder(r.Body).Decode(&user)
-	response := insertUser(user)
+	response := handler.InsertUser(user)
 	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		panic(err)
 	}
-}
-
-func insertEvent(event models.EventInfo) *mongo.InsertOneResult {
-	event.EventId = primitive.NewObjectID()
-	insertone, err := collection2.InsertOne(context.TODO(), event)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println("Inserted a single document: ", insertone.InsertedID)
-	return insertone
 }
 
 func CreateEvent(w http.ResponseWriter, r *http.Request) {
@@ -84,7 +39,7 @@ func CreateEvent(w http.ResponseWriter, r *http.Request) {
 	var event models.EventInfo
 
 	_ = json.NewDecoder(r.Body).Decode(&event)
-	response := insertEvent(event)
+	response := handler.InsertEvent(event)
 	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		panic(err)
