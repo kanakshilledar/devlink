@@ -5,6 +5,7 @@ import (
 	"devlink/models"
 	"fmt"
 	"github.com/joho/godotenv"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -69,4 +70,22 @@ func InsertEvent(event models.EventInfo) *mongo.InsertOneResult {
 	}
 	fmt.Println("Inserted a single document: ", insertOne.InsertedID)
 	return insertOne
+}
+
+func Login(info models.Login) bool {
+	filter := bson.D{
+		{Key: "email", Value: info.Email},
+	}
+	var results models.User
+
+	err := collection.FindOne(context.TODO(), filter).Decode(&results)
+	if err != nil {
+		panic(err)
+	}
+
+	response := checkPasswordHash(info.Password, results.Password)
+	if response {
+		fmt.Println("Login Successfully")
+	}
+	return response
 }

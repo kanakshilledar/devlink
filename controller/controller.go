@@ -9,6 +9,7 @@ import (
 	"net/http"
 )
 
+var LoggedIn = false
 var collection *mongo.Collection
 var collection2 *mongo.Collection
 
@@ -43,5 +44,30 @@ func CreateEvent(w http.ResponseWriter, r *http.Request) {
 	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		panic(err)
+	}
+}
+
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+
+	var user models.Login
+	_ = json.NewDecoder(r.Body).Decode(&user)
+
+	response := handler.Login(user)
+	success := "[+] Login Success!"
+	failure := "[+] Login Failure!"
+	if response {
+		LoggedIn = true
+		err := json.NewEncoder(w).Encode(success)
+		if err != nil {
+			panic(err)
+		}
+	}
+	if !response {
+		err := json.NewEncoder(w).Encode(failure)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
