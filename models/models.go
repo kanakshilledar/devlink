@@ -22,3 +22,8 @@ type EventInfo struct {
 	EventType   string             `json:"event_type"`
 	Company     string             `json:"company"`
 }
+
+type Login struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
