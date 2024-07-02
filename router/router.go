@@ -17,6 +17,7 @@ func Router() *mux.Router {
 	router.HandleFunc("/api/deleteEvent/{id}", controller.DeleteEventHandler).Methods("DELETE")
 	router.HandleFunc("/api/user/{id}", controller.GetUserHandler).Methods("GET")
 	router.HandleFunc("/api/event/all", controller.GetAllEventsHandler).Methods("GET")
+	router.HandleFunc("/api/event/{id}", controller.GetOneEventHandler).Methods("GET")
 
 	return router
 }

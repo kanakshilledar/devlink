@@ -134,6 +134,20 @@ func GetAllEvents() []primitive.M {
 	return events
 }
 
+func GetOneEvent(eventId string) models.EventInfo {
+	id, err := primitive.ObjectIDFromHex(eventId)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.M{"_id": id}
+	var results models.EventInfo
+	err = eventsCollection.FindOne(context.TODO(), filter).Decode(&results)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return results
+}
+
 func UpdateEvent(eventID string, event models.EventInfo) error {
 
 	id, err := primitive.ObjectIDFromHex(eventID)
