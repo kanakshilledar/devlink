@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"devlink/models"
+	"errors"
 	"fmt"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
@@ -10,15 +11,16 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 	"os"
 )
 
-var collection *mongo.Collection
-var collection2 *mongo.Collection
+var usersCollection *mongo.Collection  // users DATABASE
+var eventsCollection *mongo.Collection // events DATABASE
 
-const database = "devlink"
-const usersCollection = "Users"
-const eventsCollection = "Events"
+const DATABASE = "devlink"
+const USERS = "Users"
+const EVENTS = "Events"
 
 func init() {
 	err := godotenv.Load()
@@ -32,8 +34,8 @@ func init() {
 	}
 	fmt.Println("[+] Connected Successfully to the Cluster !!")
 
-	collection = client.Database(database).Collection(usersCollection)
-	collection2 = client.Database(database).Collection(eventsCollection)
+	usersCollection = client.Database(DATABASE).Collection(USERS)
+	eventsCollection = client.Database(DATABASE).Collection(EVENTS)
 }
 
 func hashPassword(password string) (string, error) {
@@ -54,21 +56,21 @@ func InsertUser(user models.User) *mongo.InsertOneResult {
 		panic(err)
 	}
 	user.Password = hashedPassword
-	insertOne, err := collection.InsertOne(context.TODO(), user)
+	insertOne, err := usersCollection.InsertOne(context.TODO(), user)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Inserted a single document: %+v\n", insertOne.InsertedID)
+	fmt.Printf("[+] Inserted a single document: %+v\n", insertOne.InsertedID)
 	return insertOne
 }
 
 func InsertEvent(event models.EventInfo) *mongo.InsertOneResult {
 	event.EventId = primitive.NewObjectID()
-	insertOne, err := collection2.InsertOne(context.TODO(), event)
+	insertOne, err := eventsCollection.InsertOne(context.TODO(), event)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Inserted a single document: ", insertOne.InsertedID)
+	fmt.Println("[+] Inserted a single document: ", insertOne.InsertedID)
 	return insertOne
 }
 
@@ -78,14 +80,78 @@ func Login(info models.Login) bool {
 	}
 	var results models.User
 
-	err := collection.FindOne(context.TODO(), filter).Decode(&results)
+	err := usersCollection.FindOne(context.TODO(), filter).Decode(&results)
 	if err != nil {
-		panic(err)
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			fmt.Println("[-] No documents found")
+		}
+		fmt.Println(err)
 	}
 
 	response := checkPasswordHash(info.Password, results.Password)
 	if response {
-		fmt.Println("Login Successfully")
+		fmt.Println("[+] Login Successfully")
 	}
 	return response
+}
+
+func GetUser(userId string) models.User {
+	id, err := primitive.ObjectIDFromHex(userId)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.M{"_id": id}
+	var results models.User
+	err = usersCollection.FindOne(context.TODO(), filter).Decode(&results)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return results
+}
+
+func UpdateEvent(eventID string, event models.EventInfo) error {
+
+	id, err := primitive.ObjectIDFromHex(eventID)
+
+	if err != nil {
+		return fmt.Errorf("[-] Cannot convert to ObjectID")
+	}
+
+	filter := bson.D{
+		{Key: "_id", Value: id},
+	}
+
+	update := bson.D{{"$set", bson.D{
+		{Key: "event_name", Value: event.EventName},
+		{Key: "start_date", Value: event.StartDate},
+		{Key: "end_date", Value: event.EndDate},
+		{Key: "description", Value: event.Description},
+		{Key: "event_type", Value: event.EventType},
+		{Key: "company", Value: event.Company},
+	}}}
+
+	res := eventsCollection.FindOneAndUpdate(context.TODO(), filter, update)
+	if res.Err() != nil {
+		if errors.Is(res.Err(), mongo.ErrNoDocuments) {
+			fmt.Println("[-] No Documents Found")
+		}
+		fmt.Println(res.Err())
+	}
+
+	fmt.Println("[+] Update Successfully")
+
+	return nil
+}
+
+func DeleteEvent(eventId string) {
+	id, err := primitive.ObjectIDFromHex(eventId)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.M{"_id": id}
+	_, err = eventsCollection.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("[+] Deleted event with id: %s\n", id)
 }
