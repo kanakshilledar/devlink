@@ -148,6 +148,28 @@ func GetOneEvent(eventId string) models.EventInfo {
 	return results
 }
 
+func GetUserEvents(userId string) []primitive.M {
+	id, err := primitive.ObjectIDFromHex(userId)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.M{"added_by": id}
+	var results []primitive.M
+	cursor, err := eventsCollection.Find(context.Background(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for cursor.Next(context.Background()) {
+		var event bson.M
+		err := cursor.Decode(&event)
+		if err != nil {
+			log.Fatal(err)
+		}
+		results = append(results, event)
+	}
+	return results
+}
+
 func UpdateEvent(eventID string, event models.EventInfo) error {
 
 	id, err := primitive.ObjectIDFromHex(eventID)

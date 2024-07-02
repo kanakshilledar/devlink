@@ -21,6 +21,7 @@ type EventInfo struct {
 	Description string             `json:"description" bson:"description"`
 	EventType   string             `json:"event_type" bson:"event_type"`
 	Company     string             `json:"company" bson:"company"`
+	AddedBy     primitive.ObjectID `json:"added_by" bson:"added_by"`
 }
 
 type Login struct {

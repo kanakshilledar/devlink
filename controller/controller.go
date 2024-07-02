@@ -147,6 +147,18 @@ func GetOneEventHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func GetUserEventHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Methods", "GET")
+
+	params := mux.Vars(r)
+	events := handler.GetUserEvents(params["id"])
+	err := json.NewEncoder(w).Encode(events)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func UpdateEventHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "PUT")

@@ -20,6 +20,7 @@ func Router() *mux.Router {
 	router.HandleFunc("/api/updateUser/{id}", controller.UpdateUserHandler).Methods("PUT")
 	router.HandleFunc("/api/event/all", controller.GetAllEventsHandler).Methods("GET")
 	router.HandleFunc("/api/event/{id}", controller.GetOneEventHandler).Methods("GET")
+	router.HandleFunc("/api/event/user/{id}", controller.GetUserEventHandler).Methods("GET")
 
 	return router
 }
