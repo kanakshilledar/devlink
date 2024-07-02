@@ -6,21 +6,21 @@ import (
 
 type User struct {
 	Id          primitive.ObjectID `json:"id,omitempty" bson:"_id"`
-	Name        string             `json:"name"`
-	PhoneNumber string             `json:"phone_number"`
-	Email       string             `json:"email"`
-	Password    string             `json:"password"`
-	Company     string             `json:"company"`
+	Name        string             `json:"name" bson:"name"`
+	PhoneNumber string             `json:"phone_number" bson:"phone_number"`
+	Email       string             `json:"email" bson:"email"`
+	Password    string             `json:"password" bson:"password"`
+	Company     string             `json:"company" bson:"company"`
 }
 
 type EventInfo struct {
-	EventId     primitive.ObjectID `json:"event_id" bson:"_id"`
-	EventName   string             `json:"event_name"`
-	StartDate   string             `json:"start_date"`
-	EndDate     string             `json:"end_date"`
-	Description string             `json:"description"`
-	EventType   string             `json:"event_type"`
-	Company     string             `json:"company"`
+	EventId     primitive.ObjectID `json:"event_id,omitempty" bson:"_id,omitempty"`
+	EventName   string             `json:"event_name" bson:"event_name"`
+	StartDate   string             `json:"start_date" bson:"start_date"`
+	EndDate     string             `json:"end_date" bson:"end_date"`
+	Description string             `json:"description" bson:"description"`
+	EventType   string             `json:"event_type" bson:"event_type"`
+	Company     string             `json:"company" bson:"company"`
 }
 
 type Login struct {
