@@ -169,7 +169,7 @@ func UpdateEvent(eventID string, event models.EventInfo) error {
 		{Key: "company", Value: event.Company},
 	}}}
 
-  res := eventsCollection.FindOneAndUpdate(context.TODO(), filter, update)
+	res := eventsCollection.FindOneAndUpdate(context.TODO(), filter, update)
 	if res.Err() != nil {
 		if errors.Is(res.Err(), mongo.ErrNoDocuments) {
 			fmt.Println("[-] No Documents Found")
@@ -177,7 +177,7 @@ func UpdateEvent(eventID string, event models.EventInfo) error {
 		fmt.Println(res.Err())
 	}
 	fmt.Println("[+] Update Successfully")
-  
+
 	return nil
 }
 
@@ -208,7 +208,7 @@ func UpdateUser(userId string, user models.User) error {
 		{"email", user.Email},
 		{"company", user.Company},
 	}}}
-	res := eventsCollection.FindOneAndUpdate(context.TODO(), filter, update)
+	res := usersCollection.FindOneAndUpdate(context.TODO(), filter, update)
 	if res.Err() != nil {
 		if errors.Is(res.Err(), mongo.ErrNoDocuments) {
 			return fmt.Errorf("[-] No Documents Found")
