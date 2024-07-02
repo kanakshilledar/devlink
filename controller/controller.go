@@ -5,15 +5,13 @@ import (
 	"devlink/models"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
-	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
 )
 
 var LoggedIn = false
-var collection *mongo.Collection
-var collection2 *mongo.Collection
 
 var key = []byte("super-secret-key")
 var store = sessions.NewCookieStore(key)
@@ -60,7 +58,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	var user models.Login
 	_ = json.NewDecoder(r.Body).Decode(&user)
-
 	response := handler.Login(user)
 	success := "[+] Login Success!"
 	failure := "[+] Login Failure!"
@@ -113,5 +110,46 @@ func Secret(w http.ResponseWriter, r *http.Request) {
 	_, err := fmt.Fprintln(w, "flag{you_logged_in}")
 	if err != nil {
 		panic(err)
+	}
+}
+
+func GetUserHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Methods", "GET")
+
+	params := mux.Vars(r)
+	user := handler.GetUser(params["id"])
+	err := json.NewEncoder(w).Encode(user)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func UpdateEventInfo(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Methods", "PUT")
+
+	var event models.EventInfo
+	_ = json.NewDecoder(r.Body).Decode(&event)
+	params := mux.Vars(r)
+	err := handler.UpdateEvent(params["id"], event)
+	if err != nil {
+		log.Println(err)
+	}
+	err = json.NewEncoder(w).Encode("[+] Updated data successfully")
+	if err != nil {
+		log.Println(err)
+	}
+}
+
+func DeleteEventHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
+
+	params := mux.Vars(r)
+	handler.DeleteEvent(params["id"])
+	err := json.NewEncoder(w).Encode("[+] Deleted Event Successfully")
+	if err != nil {
+		log.Fatal(err)
 	}
 }
