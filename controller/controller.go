@@ -23,7 +23,7 @@ func LandingPage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func CreateUser(w http.ResponseWriter, r *http.Request) {
+func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 
@@ -36,7 +36,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func CreateEvent(w http.ResponseWriter, r *http.Request) {
+func CreateEventHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 
@@ -125,7 +125,7 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func UpdateEventInfo(w http.ResponseWriter, r *http.Request) {
+func UpdateEventHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "PUT")
 
@@ -151,5 +151,21 @@ func DeleteEventHandler(w http.ResponseWriter, r *http.Request) {
 	err := json.NewEncoder(w).Encode("[+] Deleted Event Successfully")
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Methods", "PUT")
+	params := mux.Vars(r)
+	var info models.User
+	_ = json.NewDecoder(r.Body).Decode(&info)
+	err := handler.UpdateUser(params["id"], info)
+	if err != nil {
+		log.Println(err)
+	}
+	err = json.NewEncoder(w).Encode("[+] Updated data successfully")
+	if err != nil {
+		log.Println(err)
 	}
 }
