@@ -109,6 +109,31 @@ func GetUser(userId string) models.User {
 	return results
 }
 
+func GetAllEvents() []primitive.M {
+	cursor, err := eventsCollection.Find(context.Background(), bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var events []primitive.M
+	for cursor.Next(context.Background()) {
+		var event bson.M
+		err := cursor.Decode(&event)
+		if err != nil {
+			log.Fatal(err)
+		}
+		events = append(events, event)
+	}
+
+	defer func(cursor *mongo.Cursor, ctx context.Context) {
+		err := cursor.Close(ctx)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}(cursor, context.Background())
+	return events
+}
+
 func UpdateEvent(eventID string, event models.EventInfo) error {
 
 	id, err := primitive.ObjectIDFromHex(eventID)
