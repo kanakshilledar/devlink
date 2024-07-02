@@ -109,14 +109,57 @@ func GetUser(userId string) models.User {
 	return results
 }
 
+func GetAllEvents() []primitive.M {
+	cursor, err := eventsCollection.Find(context.Background(), bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var events []primitive.M
+	for cursor.Next(context.Background()) {
+		var event bson.M
+		err := cursor.Decode(&event)
+		if err != nil {
+			log.Fatal(err)
+		}
+		events = append(events, event)
+	}
+
+	defer func(cursor *mongo.Cursor, ctx context.Context) {
+		err := cursor.Close(ctx)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}(cursor, context.Background())
+	return events
+}
+
+func GetOneEvent(eventId string) models.EventInfo {
+	id, err := primitive.ObjectIDFromHex(eventId)
+	if err != nil {
+		log.Fatal(err)
+	}
+	filter := bson.M{"_id": id}
+	var results models.EventInfo
+	err = eventsCollection.FindOne(context.TODO(), filter).Decode(&results)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return results
+}
+
 func UpdateEvent(eventID string, event models.EventInfo) error {
+
 	id, err := primitive.ObjectIDFromHex(eventID)
+
 	if err != nil {
 		return fmt.Errorf("[-] Cannot convert to ObjectID")
 	}
+
 	filter := bson.D{
 		{Key: "_id", Value: id},
 	}
+
 	update := bson.D{{"$set", bson.D{
 		{Key: "event_name", Value: event.EventName},
 		{Key: "start_date", Value: event.StartDate},
@@ -125,7 +168,8 @@ func UpdateEvent(eventID string, event models.EventInfo) error {
 		{Key: "event_type", Value: event.EventType},
 		{Key: "company", Value: event.Company},
 	}}}
-	res := eventsCollection.FindOneAndUpdate(context.TODO(), filter, update)
+
+  res := eventsCollection.FindOneAndUpdate(context.TODO(), filter, update)
 	if res.Err() != nil {
 		if errors.Is(res.Err(), mongo.ErrNoDocuments) {
 			fmt.Println("[-] No Documents Found")
@@ -133,6 +177,7 @@ func UpdateEvent(eventID string, event models.EventInfo) error {
 		fmt.Println(res.Err())
 	}
 	fmt.Println("[+] Update Successfully")
+  
 	return nil
 }
 
