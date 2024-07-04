@@ -1,3 +1,4 @@
+[![Go](https://github.com/kanakshilledar/devlink/actions/workflows/go.yml/badge.svg)](https://github.com/kanakshilledar/devlink/actions/workflows/go.yml)
 # Devlink
 A simple webapp to find you upcoming conferences or meetups.
 
