@@ -4,6 +4,7 @@ import (
 	"devlink/handler"
 	"devlink/models"
 	"encoding/json"
+	"github.com/alexedwards/scs/v2"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 	"log"
@@ -11,6 +12,8 @@ import (
 )
 
 var LoggedIn = false
+
+var Session *scs.SessionManager
 
 var key = []byte("super-secret-key")
 var store = sessions.NewCookieStore(key)
@@ -36,18 +39,22 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	var user models.Login
 	_ = json.NewDecoder(r.Body).Decode(&user)
-	response := handler.Login(user)
+	response, token, err := handler.Login(user)
+	if err != nil {
+		log.Fatal(err)
+	}
 	success := "[+] Login Success!"
 	failure := "[+] Login Failure!"
 	if response {
 		session.Values["authenticated"] = true
 		err := session.Save(r, w)
 		if err != nil {
-			panic(err)
+			log.Println(err)
 		}
 		err = json.NewEncoder(w).Encode(success)
+		json.NewEncoder(w).Encode(token)
 		if err != nil {
-			panic(err)
+			log.Println(err)
 		}
 	}
 	if !response {

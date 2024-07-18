@@ -5,6 +5,7 @@ import (
 	"devlink/models"
 	"errors"
 	"fmt"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -13,6 +14,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"os"
+)
+
+var (
+	key         []byte
+	token       *jwt.Token
+	signedToken string
 )
 
 var usersCollection *mongo.Collection // users DATABASE
@@ -52,6 +59,7 @@ func InsertUser(user models.User) *mongo.InsertOneResult {
 		panic(err)
 	}
 	user.Password = hashedPassword
+
 	insertOne, err := usersCollection.InsertOne(context.TODO(), user)
 	if err != nil {
 		panic(err)
@@ -60,7 +68,7 @@ func InsertUser(user models.User) *mongo.InsertOneResult {
 	return insertOne
 }
 
-func Login(info models.Login) bool {
+func Login(info models.Login) (bool, string, error) {
 	filter := bson.D{
 		{Key: "email", Value: info.Email},
 	}
@@ -74,11 +82,17 @@ func Login(info models.Login) bool {
 		fmt.Println(err)
 	}
 
+	//fmt.Println(results.Id.Hex())
+
 	response := checkPasswordHash(info.Password, results.Password)
 	if response {
 		fmt.Println("[+] Login Successfully")
+		key = []byte(os.Getenv("KEY"))
+		token = jwt.New(jwt.SigningMethodHS256)
+		signedToken, _ = token.SignedString(key)
 	}
-	return response
+
+	return response, signedToken, nil
 }
 
 func GetUser(userId string) models.User {
