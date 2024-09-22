@@ -12,7 +12,7 @@ const page = () => {
           <div className="text-2xl mt-4">Password:</div>
           <Input type="password" placeholder="Password" className="mt-1" />
           <div className="mt-2">
-            Don't have an account? Create one{" "}
+            Don&apos;t have an account? Create one{" "}
             <Link href="/signup">
               <u>here</u>
             </Link>

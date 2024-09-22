@@ -1,7 +1,6 @@
 import { Calendar, Building2 } from "lucide-react";
 
 interface CardProps {
-  eventId: string;
   eventName: string;
   startDate: string;
   endDate: string;
@@ -12,7 +11,6 @@ interface CardProps {
 }
 
 const Card = ({
-  eventId,
   eventName,
   startDate,
   endDate,
