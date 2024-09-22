@@ -7,11 +7,11 @@ const page = () => {
       <div className="flex flex-col gap-16 justify-between p-6 min-w-96 w-3/12 border-2">
         <div className="text-4xl font-bold">SIGN IN</div>
         <div>
-          <div className="text-2xl">Email:</div>
+          <div className="text-xl">Email:</div>
           <Input type="text" placeholder="Email" className="mt-1" />
-          <div className="text-2xl mt-4">Password:</div>
+          <div className="text-xl mt-4">Password:</div>
           <Input type="password" placeholder="Password" className="mt-1" />
-          <div className="mt-2">
+          <div className="text-sm mt-2">
             Don&apos;t have an account? Create one{" "}
             <Link href="/signup">
               <u>here</u>

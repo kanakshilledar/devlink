@@ -5,14 +5,14 @@ const page = () => {
   const InputComponent = ({ title }: { title: string }) => {
     return (
       <div>
-        <div className="text-2xl">{title}:</div>
+        <div className="text-xl">{title}:</div>
         <Input type="text" placeholder={title} className="mt-1" />
       </div>
     );
   };
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <div className="flex flex-col gap-16 justify-between p-6 min-w-96 w-3/12 border-2">
+      <div className="flex flex-col gap-8 justify-between p-6 min-w-96 w-3/12 border-2">
         <div className="text-4xl font-bold">SIGN UP</div>
         <div>
           <div className="flex flex-col gap-4">
