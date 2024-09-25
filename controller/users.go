@@ -4,19 +4,12 @@ import (
 	"devlink/handler"
 	"devlink/models"
 	"encoding/json"
-	"github.com/alexedwards/scs/v2"
 	"github.com/gorilla/mux"
-	"github.com/gorilla/sessions"
 	"log"
 	"net/http"
 )
 
 var LoggedIn = false
-
-var Session *scs.SessionManager
-
-var key = []byte("super-secret-key")
-var store = sessions.NewCookieStore(key)
 
 func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -35,8 +28,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 
-	session, _ := store.Get(r, "auth-session")
-
 	var user models.Login
 	_ = json.NewDecoder(r.Body).Decode(&user)
 	response, token, err := handler.Login(user)
@@ -46,15 +37,10 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	success := "[+] Login Success!"
 	failure := "[+] Login Failure!"
 	if response {
-		session.Values["authenticated"] = true
-		err := session.Save(r, w)
-		if err != nil {
-			log.Println(err)
-		}
 		err = json.NewEncoder(w).Encode(success)
-		json.NewEncoder(w).Encode(token)
+		err := json.NewEncoder(w).Encode(token)
 		if err != nil {
-			log.Println(err)
+			return
 		}
 	}
 	if !response {
@@ -68,17 +54,9 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
-
-	session, _ := store.Get(r, "auth-session")
-	//session.Options.MaxAge =
-	session.Values["authenticated"] = false
-	err := session.Save(r, w)
+	err := json.NewEncoder(w).Encode("[+] Logged Out Successfully")
 	if err != nil {
-		panic(err)
-	}
-	err = json.NewEncoder(w).Encode("[+] Logged Out Successfully")
-	if err != nil {
-		panic(err)
+		return
 	}
 }
 

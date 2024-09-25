@@ -4,7 +4,6 @@ import (
 	"devlink/handler"
 	"devlink/models"
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -31,21 +30,21 @@ func CreateEventHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Secret(w http.ResponseWriter, r *http.Request) {
-	session, _ := store.Get(r, "auth-session")
-
-	// Check if user is authenticated
-	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
-		http.Error(w, "Forbidden", http.StatusForbidden)
-		return
-	}
-
-	// Print secret message
-	_, err := fmt.Fprintln(w, "flag{you_logged_in}")
-	if err != nil {
-		panic(err)
-	}
-}
+//func Secret(w http.ResponseWriter, r *http.Request) {
+//	session, _ := store.Get(r, "auth-session")
+//
+//	// Check if user is authenticated
+//	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+//		http.Error(w, "Forbidden", http.StatusForbidden)
+//		return
+//	}
+//
+//	// Print secret message
+//	_, err := fmt.Fprintln(w, "flag{you_logged_in}")
+//	if err != nil {
+//		panic(err)
+//	}
+//}
 
 func GetAllEventsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
