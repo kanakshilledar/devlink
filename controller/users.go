@@ -29,26 +29,45 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 
 	var user models.Login
-	_ = json.NewDecoder(r.Body).Decode(&user)
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		http.Error(w, "Invalid request payload", http.StatusBadRequest)
+		return
+	}
+
 	response, token, err := handler.Login(user)
 	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusUnauthorized)
 		log.Fatal(err)
+		return
 	}
-	success := "[+] Login Success!"
-	failure := "[+] Login Failure!"
+
+	type LoginResponse struct {
+		Success bool   `json:"success"`
+		Token   string `json:"token,omitempty"`
+	}
+
 	if response {
-		err = json.NewEncoder(w).Encode(success)
-		err := json.NewEncoder(w).Encode(token)
+		resp := LoginResponse{
+			Success: true,
+			Token:   token,
+		}
+		err = json.NewEncoder(w).Encode(resp)
 		if err != nil {
+			http.Error(w, "Failed to encode response", http.StatusUnauthorized)
+			return
+		}
+	} else {
+		resp := LoginResponse{
+			Success: false,
+		}
+		err = json.NewEncoder(w).Encode(resp)
+		if err != nil {
+			http.Error(w, "Failed to encode response", http.StatusUnauthorized)
 			return
 		}
 	}
-	if !response {
-		err := json.NewEncoder(w).Encode(failure)
-		if err != nil {
-			panic(err)
-		}
-	}
+
 }
 
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
