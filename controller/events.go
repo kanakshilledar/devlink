@@ -4,9 +4,14 @@ import (
 	"devlink/handler"
 	"devlink/models"
 	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"net/http"
+	"os"
 )
 
 func LandingPage(w http.ResponseWriter, r *http.Request) {
@@ -16,15 +21,48 @@ func LandingPage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func extractUserIDFromToken(r *http.Request) (string, error) {
+	signingKey := []byte(os.Getenv("KEY"))
+	tokenString := r.Header.Get("Authorization")
+	if tokenString == "" {
+		return "", errors.New("no token provided")
+	}
+
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return signingKey, nil
+	})
+
+	if err != nil || !token.Valid {
+		return "", errors.New("invalid token")
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok {
+		if email, ok := claims["sub"].(string); ok {
+			return email, nil
+		}
+	}
+
+	return "", errors.New("invalid token claims")
+}
+
 func CreateEventHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 
-	var event models.EventInfo
+	userEmail, err := extractUserIDFromToken(r)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
+	var event models.EventInfo
 	_ = json.NewDecoder(r.Body).Decode(&event)
+	event.AddedBy, _ = primitive.ObjectIDFromHex(userEmail)
 	response := handler.InsertEvent(event)
-	err := json.NewEncoder(w).Encode(response)
+	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		panic(err)
 	}

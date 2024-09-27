@@ -83,7 +83,6 @@ func createToken(email string) (string, error) {
 		return "", err
 	}
 	return tokenString, nil
-
 }
 
 func Login(info models.Login) (bool, string, error) {
