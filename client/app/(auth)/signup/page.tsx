@@ -16,8 +16,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const page = () => {
+  const { toast } = useToast();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof SignUpSchema>>({
@@ -44,9 +46,14 @@ const page = () => {
       const data = await res.json();
       if (data) {
         console.log(data);
+        toast({
+          title: "Account created successfully",
+          description:
+            "You will be redirected to the login page, let see if you remember your password",
+        });
         setTimeout(() => {
           router.push("/signin");
-        }, 2000);
+        }, 3000);
       }
     } catch (error) {
       console.error(error);
