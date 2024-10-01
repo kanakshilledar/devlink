@@ -14,15 +14,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"os"
-)
-
-var (
-	key         []byte
-	token       *jwt.Token
-	signedToken string
+	"time"
 )
 
 var usersCollection *mongo.Collection // users DATABASE
+var secretKey = []byte(os.Getenv("KEY"))
+var signedToken string
 
 const USERS = "Users"
 
@@ -36,9 +33,14 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("[+] Connected Successfully to the Cluster !!")
-
+	fmt.Println("[*] Connected Successfully to the Cluster !!")
 	usersCollection = client.Database(DATABASE).Collection(USERS)
+
+	key := os.Getenv("KEY")
+	if key == "" {
+		log.Fatal("KEY environment variable not set")
+	}
+	secretKey = []byte(key)
 }
 
 func hashPassword(password string) (string, error) {
@@ -68,6 +70,21 @@ func InsertUser(user models.User) *mongo.InsertOneResult {
 	return insertOne
 }
 
+func createToken(email string) (string, error) {
+	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": email,
+		"iss": "devlink",
+		"exp": time.Now().Add(time.Hour).Unix(),
+		"iat": time.Now().Unix(),
+	})
+	//fmt.Println("[+] Token claims added: %+v\n", claims)
+	tokenString, err := claims.SignedString(secretKey)
+	if err != nil {
+		return "", err
+	}
+	return tokenString, nil
+}
+
 func Login(info models.Login) (bool, string, error) {
 	filter := bson.D{
 		{Key: "email", Value: info.Email},
@@ -78,20 +95,26 @@ func Login(info models.Login) (bool, string, error) {
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			fmt.Println("[-] No documents found")
+			return false, "", err
 		}
 		fmt.Println(err)
+		return false, "", err
 	}
-
 	//fmt.Println(results.Id.Hex())
 
 	response := checkPasswordHash(info.Password, results.Password)
-	if response {
-		fmt.Println("[+] Login Successfully")
-		key = []byte(os.Getenv("KEY"))
-		token = jwt.New(jwt.SigningMethodHS256)
-		signedToken, _ = token.SignedString(key)
+	if !response {
+		fmt.Println("[!] Password mismatch")
+		return false, "", nil
 	}
 
+	fmt.Println("[+] Login Successfully")
+	signedToken, err := createToken(results.Email)
+	if err != nil {
+		return false, "", err
+	}
+
+	fmt.Printf("[*] Token Created: %s\n", signedToken)
 	return response, signedToken, nil
 }
 
