@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function SignInLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
