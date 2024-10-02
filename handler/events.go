@@ -33,14 +33,31 @@ func init() {
 	eventsCollection = client.Database(DATABASE).Collection(EVENTS)
 }
 
-func InsertEvent(event models.EventInfo) *mongo.InsertOneResult {
+func fetchUserIDFromEmail(email string) (primitive.ObjectID, error) {
+	// Replace with your MongoDB collection and query
+	var user models.User
+	err := usersCollection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
+	if err != nil {
+		return primitive.NilObjectID, errors.New("user not found")
+	}
+	return user.Id, nil
+}
+
+func InsertEvent(event models.EventInfo, userEmail string) (interface{}, error) {
+	// fetch userid from email
+	userID, err := fetchUserIDFromEmail(userEmail)
+	if err != nil {
+		return nil, err
+	}
+
 	event.EventId = primitive.NewObjectID()
+	event.AddedBy = userID
 	insertOne, err := eventsCollection.InsertOne(context.TODO(), event)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("[+] Inserted a single document: ", insertOne.InsertedID)
-	return insertOne
+	return insertOne, nil
 }
 
 func GetAllEvents() []primitive.M {

@@ -73,7 +73,17 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
-	err := json.NewEncoder(w).Encode("[+] Logged Out Successfully")
+
+	type Response struct {
+		Success bool   `json:"success"`
+		Message string `json:"message"`
+	}
+
+	response := Response{
+		Success: true,
+		Message: "logout successfull",
+	}
+	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		return
 	}
