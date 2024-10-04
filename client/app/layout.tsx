@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Overpass_Mono } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const overpassMono = Overpass_Mono({
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${overpassMono.className} antialiased`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );

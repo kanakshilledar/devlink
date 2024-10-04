@@ -1,14 +1,5 @@
 import { Calendar, Building2 } from "lucide-react";
-
-interface CardProps {
-  eventName: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  eventType: string;
-  company: string;
-  addedBy: string;
-}
+import { EventCardType } from "@/lib/types";
 
 const Card = ({
   eventName,
@@ -18,7 +9,7 @@ const Card = ({
   eventType,
   company,
   addedBy,
-}: CardProps) => {
+}: EventCardType) => {
   return (
     <div className="flex flex-col justify-between gap-5 p-6 border-2 max-w-96">
       <div className="text-3xl font-bold">{eventName}</div>
