@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/gorilla/mux"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"net/http"
 	"os"
@@ -26,6 +25,8 @@ func extractUserIDFromToken(r *http.Request) (string, error) {
 	tokenString := r.Header.Get("Authorization")
 	if tokenString == "" {
 		return "", errors.New("no token provided")
+	} else if len(tokenString) > 6 && tokenString[:7] == "Bearer " {
+		tokenString = tokenString[7:]
 	}
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -41,6 +42,7 @@ func extractUserIDFromToken(r *http.Request) (string, error) {
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {
 		if email, ok := claims["sub"].(string); ok {
+			fmt.Println("[+] email: ", email)
 			return email, nil
 		}
 	}
@@ -55,15 +57,21 @@ func CreateEventHandler(w http.ResponseWriter, r *http.Request) {
 	userEmail, err := extractUserIDFromToken(r)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println(err)
 		return
 	}
 
 	var event models.EventInfo
 	_ = json.NewDecoder(r.Body).Decode(&event)
-	event.AddedBy, _ = primitive.ObjectIDFromHex(userEmail)
-	response := handler.InsertEvent(event)
+	response, err := handler.InsertEvent(event, userEmail)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println("Error inserting event:", err)
+		return
+	}
 	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
 		panic(err)
 	}
 }
