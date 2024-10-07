@@ -2,15 +2,18 @@ package controller
 
 import (
 	"devlink/handler"
+	"devlink/middleware"
 	"devlink/models"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func LandingPage(w http.ResponseWriter, r *http.Request) {
@@ -95,8 +98,37 @@ func CreateEventHandler(w http.ResponseWriter, r *http.Request) {
 func GetAllEventsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
+
+	type Response struct {
+		Success bool          `json:"success"`
+		Name    string        `json:"name"`
+		Events  []primitive.M `json:"events"`
+	}
+
 	events := handler.GetAllEvents()
-	err := json.NewEncoder(w).Encode(events)
+
+	tokenString := r.Header.Get("Authorization")
+	response := Response{}
+	if tokenString != "" {
+		tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+		token, err := middleware.VerifyToken(tokenString)
+		if err != nil || !token.Valid {
+			response.Name = ""
+		} else if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+			email := claims["sub"].(string)
+			name, _ := handler.FetchUserNameFromEmail(email)
+			response.Name = name
+		} else {
+			response.Name = ""
+		}
+	} else {
+		response.Name = ""
+	}
+
+	response.Success = true
+	response.Events = events
+
+	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		log.Fatal(err)
 	}
