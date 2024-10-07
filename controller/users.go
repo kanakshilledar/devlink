@@ -93,9 +93,18 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
 
+	type Response struct {
+		Success bool        `json:"success"`
+		User    models.User `json:"user"`
+	}
+
 	params := mux.Vars(r)
 	user := handler.GetUser(params["id"])
-	err := json.NewEncoder(w).Encode(user)
+	response := Response{
+		Success: true,
+		User:    user,
+	}
+	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -108,10 +117,18 @@ func UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
 	var info models.User
 	_ = json.NewDecoder(r.Body).Decode(&info)
 	err := handler.UpdateUser(params["id"], info)
+
+	response := models.Response{}
+	response.Success = true
+	response.Message = "Updated data successfully"
+
 	if err != nil {
+		response.Success = false
+		response.Message = err.Error()
 		log.Println(err)
 	}
-	err = json.NewEncoder(w).Encode("[+] Updated data successfully")
+
+	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		log.Println(err)
 	}

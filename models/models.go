@@ -30,3 +30,8 @@ type Login struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
+
+type Response struct {
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+}
