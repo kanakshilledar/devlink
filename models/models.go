@@ -15,13 +15,15 @@ type User struct {
 
 type EventInfo struct {
 	EventId     primitive.ObjectID `json:"event_id,omitempty" bson:"_id,omitempty"`
-	EventName   string             `json:"event_name" bson:"event_name"`
+	EventName   string             `json:"event_name" bson:"event_name" validate:"required"`
 	StartDate   string             `json:"start_date" bson:"start_date"`
 	EndDate     string             `json:"end_date" bson:"end_date"`
 	Description string             `json:"description" bson:"description"`
 	EventType   string             `json:"event_type" bson:"event_type"`
+	EventLink   string             `json:"eventLink" bson:"eventLink" validate:"required"`
 	Company     string             `json:"company" bson:"company"`
-	AddedBy     primitive.ObjectID `json:"added_by" bson:"added_by"`
+	AddedByID   primitive.ObjectID `json:"added_by_id" bson:"added_by_id"`
+	AddedByName string             `json:"added_by_name" bson:"added_by_name"`
 }
 
 type Login struct {
