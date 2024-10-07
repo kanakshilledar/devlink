@@ -22,6 +22,7 @@ type EventInfo struct {
 	EventType   string             `json:"eventType" bson:"eventType"`
 	EventLink   string             `json:"eventLink" bson:"eventLink" validate:"required"`
 	Company     string             `json:"company" bson:"company"`
+	Location    string             `json:"location" bson:"location"`
 	AddedByID   primitive.ObjectID `json:"addedByID" bson:"addedByID"`
 	AddedByName string             `json:"addedByName" bson:"addedByName"`
 }
