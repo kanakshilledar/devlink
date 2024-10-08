@@ -53,6 +53,20 @@ func checkPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
+func CheckUserExists(email string) (bool, error) {
+	filter := bson.D{
+		{Key: "email", Value: email},
+	}
+	var results models.User
+	err := usersCollection.FindOne(context.TODO(), filter).Decode(&results)
+	if err == mongo.ErrNoDocuments {
+		return false, nil
+	} else if err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
 func InsertUser(user models.User) *mongo.InsertOneResult {
 	user.Id = primitive.NewObjectID()
 	//fmt.Printf("[+] Inserted User %T\n", user.Password)
