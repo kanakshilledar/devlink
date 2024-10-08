@@ -66,7 +66,20 @@ func CreateEventHandler(w http.ResponseWriter, r *http.Request) {
 
 	var event models.EventInfo
 	_ = json.NewDecoder(r.Body).Decode(&event)
-	response, err := handler.InsertEvent(event, userEmail)
+	exist, err := handler.CheckEventExists(event.EventName)
+	var response models.Response
+	if exist == true {
+		response.Success = false
+		response.Message = "Event already exists"
+	} else {
+		_, err := handler.InsertEvent(event, userEmail)
+		if err != nil {
+			response.Success = false
+			response.Message = err.Error()
+		}
+		response.Success = true
+		response.Message = "Event created"
+	}
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println("Error inserting event:", err)
