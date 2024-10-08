@@ -34,13 +34,35 @@ func init() {
 }
 
 func fetchUserIDFromEmail(email string) (primitive.ObjectID, error) {
-	// Replace with your MongoDB collection and query
 	var user models.User
 	err := usersCollection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
 	if err != nil {
 		return primitive.NilObjectID, errors.New("user not found")
 	}
 	return user.Id, nil
+}
+
+func FetchUserNameFromEmail(email string) (string, error) {
+	var user models.User
+	err := usersCollection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
+	if err != nil {
+		return "", errors.New("user not found")
+	}
+	return user.Name, nil
+}
+
+func CheckEventExists(eventName string) (bool, error) {
+	filter := bson.D{
+		{Key: "eventName", Value: eventName},
+	}
+	var existingEvent models.EventInfo
+	err := eventsCollection.FindOne(context.TODO(), filter).Decode(&existingEvent)
+	if err == mongo.ErrNoDocuments {
+		return false, nil
+	} else if err != nil {
+		return false, err
+	}
+	return true, nil
 }
 
 func InsertEvent(event models.EventInfo, userEmail string) (interface{}, error) {
@@ -50,8 +72,14 @@ func InsertEvent(event models.EventInfo, userEmail string) (interface{}, error) 
 		return nil, err
 	}
 
+	userName, err := FetchUserNameFromEmail(userEmail)
+	if err != nil {
+		return nil, err
+	}
+
 	event.EventId = primitive.NewObjectID()
-	event.AddedBy = userID
+	event.AddedByID = userID
+	event.AddedByName = userName
 	insertOne, err := eventsCollection.InsertOne(context.TODO(), event)
 	if err != nil {
 		panic(err)

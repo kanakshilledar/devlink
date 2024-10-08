@@ -17,8 +17,17 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	var user models.User
 	_ = json.NewDecoder(r.Body).Decode(&user)
-	response := handler.InsertUser(user)
-	err := json.NewEncoder(w).Encode(response)
+	exist, err := handler.CheckUserExists(user.Email)
+	var response models.Response
+	if exist == true {
+		response.Success = false
+		response.Message = "User already exists"
+	} else {
+		_ = handler.InsertUser(user)
+		response.Success = true
+		response.Message = "User created"
+	}
+	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		panic(err)
 	}
@@ -74,12 +83,7 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
 
-	type Response struct {
-		Success bool   `json:"success"`
-		Message string `json:"message"`
-	}
-
-	response := Response{
+	response := models.Response{
 		Success: true,
 		Message: "logout successfull",
 	}
@@ -93,9 +97,18 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
 
+	type Response struct {
+		Success bool        `json:"success"`
+		User    models.User `json:"user"`
+	}
+
 	params := mux.Vars(r)
 	user := handler.GetUser(params["id"])
-	err := json.NewEncoder(w).Encode(user)
+	response := Response{
+		Success: true,
+		User:    user,
+	}
+	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -108,10 +121,18 @@ func UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
 	var info models.User
 	_ = json.NewDecoder(r.Body).Decode(&info)
 	err := handler.UpdateUser(params["id"], info)
+
+	response := models.Response{}
+	response.Success = true
+	response.Message = "Updated data successfully"
+
 	if err != nil {
+		response.Success = false
+		response.Message = err.Error()
 		log.Println(err)
 	}
-	err = json.NewEncoder(w).Encode("[+] Updated data successfully")
+
+	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		log.Println(err)
 	}
