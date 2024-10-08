@@ -17,8 +17,17 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	var user models.User
 	_ = json.NewDecoder(r.Body).Decode(&user)
-	response := handler.InsertUser(user)
-	err := json.NewEncoder(w).Encode(response)
+	exist, err := handler.CheckUserExists(user.Email)
+	var response models.Response
+	if exist == true {
+		response.Success = false
+		response.Message = "User already exists"
+	} else {
+		_ = handler.InsertUser(user)
+		response.Success = true
+		response.Message = "User created"
+	}
+	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		panic(err)
 	}
@@ -74,12 +83,7 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
 
-	type Response struct {
-		Success bool   `json:"success"`
-		Message string `json:"message"`
-	}
-
-	response := Response{
+	response := models.Response{
 		Success: true,
 		Message: "logout successfull",
 	}
