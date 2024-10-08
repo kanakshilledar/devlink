@@ -51,7 +51,19 @@ func FetchUserNameFromEmail(email string) (string, error) {
 	return user.Name, nil
 }
 
-// TODO: check for event already exists
+func CheckEventExists(eventName string) (bool, error) {
+	filter := bson.D{
+		{Key: "eventName", Value: eventName},
+	}
+	var existingEvent models.EventInfo
+	err := eventsCollection.FindOne(context.TODO(), filter).Decode(&existingEvent)
+	if err == mongo.ErrNoDocuments {
+		return false, nil
+	} else if err != nil {
+		return false, err
+	}
+	return true, nil
+}
 
 func InsertEvent(event models.EventInfo, userEmail string) (interface{}, error) {
 	// fetch userid from email
