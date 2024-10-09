@@ -11,7 +11,7 @@ const Card = ({
   addedBy,
 }: EventCardType) => {
   return (
-    <div className="flex flex-col justify-between gap-5 p-6 border-2 max-w-96">
+    <div className="flex flex-col justify-between gap-5 p-6 border-2 max-w-96 rounded-xl">
       <div className="text-3xl font-bold">{eventName}</div>
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">

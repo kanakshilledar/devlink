@@ -49,7 +49,7 @@ const page = () => {
         });
         localStorage.setItem("token", data.token);
         setTimeout(() => {
-          router.push("/dashboard");
+          router.push("/");
         }, 2000);
       } else {
         toast({
@@ -104,7 +104,7 @@ const page = () => {
             </Link>
           </div>
           <Button
-            className="px-4 py-6 border-2 bg-transparent hover:bg-white hover:text-black cursor-pointer text-center rounded-none text-lg"
+            className="px-4 py-6 border-2 bg-transparent hover:bg-white hover:text-black cursor-pointer text-center text-lg"
             type="submit"
           >
             Sign In

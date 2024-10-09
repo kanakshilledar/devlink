@@ -11,6 +11,17 @@ export interface EventCardType {
   addedBy: string;
 }
 
+export const EventSchema = z.object({
+  eventName: z.string().min(3),
+  startDate: z.date(),
+  endDate: z.date(),
+  description: z.string().min(10),
+  eventLink: z.string().url(),
+  eventType: z.string().min(3),
+  location: z.string().min(3),
+  company: z.string().min(3),
+});
+
 export const SignInSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),

@@ -1,17 +1,23 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 const Hero = () => {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   return (
     <div className="w-full h-screen border-b-2 flex flex-col">
-      <div className="flex justify-end px-12 py-6">
-        <Link
-          href="/signin"
-          className="px-4 py-2 border-2 hover:bg-white hover:text-black cursor-pointer"
-        >
-          Sign In
-        </Link>
-      </div>
+      {token ? (
+        <div></div>
+      ) : (
+        <div className="flex justify-end px-12 py-6">
+          <Link
+            href="/signin"
+            className="px-4 py-2 border-2 hover:bg-white hover:text-black cursor-pointer"
+          >
+            Sign In
+          </Link>
+        </div>
+      )}
       <div className="flex flex-col justify-center gap-6 items-center grow">
         <div className="text-5xl font-bold">DevLink</div>
         <div className="w-5/6 text-white/40 text-2xl">
