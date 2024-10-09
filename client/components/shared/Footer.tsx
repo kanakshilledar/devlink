@@ -24,7 +24,12 @@ const Footer = () => {
           >
             About Us
           </div>
-          <div className="self-end hover:underline cursor-pointer text-xl">
+          <div
+            className="self-end hover:underline cursor-pointer text-xl"
+            onClick={() => {
+              router.push("/termsofuse");
+            }}
+          >
             Terms of Use
           </div>
         </div>
