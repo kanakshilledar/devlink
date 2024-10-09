@@ -8,6 +8,8 @@ export interface EventCardType {
   description: string;
   eventType: string;
   company: string;
+  location: string;
+  link: string;
   addedBy: string;
 }
 

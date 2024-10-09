@@ -12,6 +12,8 @@ const page = () => {
         "A global gathering of tech innovators, startups, and industry leaders discussing the latest in technology and innovation.",
       eventType: "Conference",
       company: "InnovateX",
+      location: "Chennai",
+      link: "https://www.google.com/",
       addedBy: "John Doe",
     },
     {
@@ -23,6 +25,8 @@ const page = () => {
         "A comprehensive bootcamp focusing on frontend technologies such as React, Next.js, and UI/UX design.",
       eventType: "Workshop",
       company: "DevHub",
+      location: "Chennai",
+      link: "https://www.google.com/",
       addedBy: "Jane Smith",
     },
     {
@@ -34,6 +38,8 @@ const page = () => {
         "An expo dedicated to advancements in Artificial Intelligence and Machine Learning, featuring keynote speakers and hands-on workshops.",
       eventType: "Expo",
       company: "AI World",
+      location: "Chennai",
+      link: "https://www.google.com/",
       addedBy: "Alice Johnson",
     },
     {
@@ -45,6 +51,8 @@ const page = () => {
         "Explore the latest trends and challenges in cybersecurity, with a focus on threat prevention, data protection, and compliance.",
       eventType: "Summit",
       company: "CyberSafe",
+      location: "Chennai",
+      link: "https://www.google.com/",
       addedBy: "Michael Green",
     },
     {
@@ -56,6 +64,8 @@ const page = () => {
         "A 48-hour hackathon focusing on blockchain technology, smart contracts, and decentralized applications.",
       eventType: "Hackathon",
       company: "BlockBuilders",
+      location: "Chennai",
+      link: "https://www.google.com/",
       addedBy: "Emily White",
     },
   ];
