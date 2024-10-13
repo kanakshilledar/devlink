@@ -33,8 +33,8 @@ const page = () => {
           </p>
         </div>
         <div className="flex flex-col gap-6 my-8">
-          <div className="text-4xl font-bold">Contributors:</div>
-          <div className="flex items-center gap-6">
+          <div className="text-4xl font-bold">Maintainers:</div>
+          <div className="flex items-center justify-center gap-6">
             <ContributorCard name="Ajay ram" role="Frontend Engineer" />
             <ContributorCard name="Kanak Shilledar" role="Backend Engineer" />
             <ContributorCard name="Gaurav" role="Backend Engineer" />

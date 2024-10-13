@@ -18,8 +18,8 @@ const Hero = () => {
         </div>
       )}
       <div className="flex flex-col justify-center gap-6 grow px-16">
-        <div className="text-7xl font-bold">DevLink</div>
-        <div className="text-4xl font-semibold">
+        <div className="text-5xl md:text-7xl font-bold">DevLink</div>
+        <div className="text-2xl md:text-4xl font-semibold">
           Let's find you a{" "}
           <TypeIt
             options={{
