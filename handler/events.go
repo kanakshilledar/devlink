@@ -1,5 +1,3 @@
-// Package handler provides functionalities for managing events in a MongoDB database.
-// This package includes methods for user authentication, event creation, retrieval, updating, and deletion.
 package handler
 
 import (
@@ -21,7 +19,6 @@ var eventsCollection *mongo.Collection // events DATABASE
 const DATABASE = "devlink"
 const EVENTS = "Events"
 
-// init initializes the MongoDB client and sets up the events collection.
 func init() {
 	err := godotenv.Load()
 	if err != nil {
@@ -36,14 +33,6 @@ func init() {
 	eventsCollection = client.Database(DATABASE).Collection(EVENTS)
 }
 
-// fetchUserIDFromEmail retrieves the user ID associated with the provided email.
-//
-// Parameters:
-//   - email: the email of the user whose ID is to be fetched.
-//
-// Returns:
-//   - primitive.ObjectID: the ID of the user.
-//   - error: an error if the user is not found or if an issue occurs during the database query.
 func fetchUserIDFromEmail(email string) (primitive.ObjectID, error) {
 	var user models.User
 	err := usersCollection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
@@ -53,14 +42,6 @@ func fetchUserIDFromEmail(email string) (primitive.ObjectID, error) {
 	return user.Id, nil
 }
 
-// FetchUserNameFromEmail retrieves the user's name associated with the provided email.
-//
-// Parameters:
-//   - email: the email of the user whose name is to be fetched.
-//
-// Returns:
-//   - string: the name of the user.
-//   - error: an error if the user is not found or if an issue occurs during the database query.
 func FetchUserNameFromEmail(email string) (string, error) {
 	var user models.User
 	err := usersCollection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
@@ -70,14 +51,6 @@ func FetchUserNameFromEmail(email string) (string, error) {
 	return user.Name, nil
 }
 
-// CheckEventExists checks if an event with the specified event name already exists.
-//
-// Parameters:
-//   - eventName: the name of the event to check for existence.
-//
-// Returns:
-//   - bool: true if the event exists, false otherwise.
-//   - error: an error if the database query fails.
 func CheckEventExists(eventName string) (bool, error) {
 	filter := bson.D{
 		{Key: "eventName", Value: eventName},
@@ -92,15 +65,6 @@ func CheckEventExists(eventName string) (bool, error) {
 	return true, nil
 }
 
-// InsertEvent adds a new event to the database and associates it with the user identified by the provided email.
-//
-// Parameters:
-//   - event: the event to be inserted.
-//   - userEmail: the email of the user adding the event.
-//
-// Returns:
-//   - interface{}: the inserted document's ID.
-//   - error: an error if the event cannot be inserted.
 func InsertEvent(event models.EventInfo, userEmail string) (interface{}, error) {
 	// fetch userid from email
 	userID, err := fetchUserIDFromEmail(userEmail)
@@ -124,10 +88,6 @@ func InsertEvent(event models.EventInfo, userEmail string) (interface{}, error) 
 	return insertOne, nil
 }
 
-// GetAllEvents retrieves all events from the database.
-//
-// Returns:
-//   - []primitive.M: a slice of all events.
 func GetAllEvents() []primitive.M {
 	cursor, err := eventsCollection.Find(context.Background(), bson.D{{}})
 	if err != nil {
@@ -153,14 +113,6 @@ func GetAllEvents() []primitive.M {
 	return events
 }
 
-// GetOneEvent retrieves a single event based on the provided event ID.
-//
-// Parameters:
-//   - eventId: the ID of the event to retrieve.
-//
-// Returns:
-//   - models.EventInfo: the requested event.
-//   - error: an error if the event cannot be found.
 func GetOneEvent(eventId string) models.EventInfo {
 	id, err := primitive.ObjectIDFromHex(eventId)
 	if err != nil {
@@ -175,13 +127,6 @@ func GetOneEvent(eventId string) models.EventInfo {
 	return results
 }
 
-// GetUserEvents retrieves all events added by a specific user based on user ID.
-//
-// Parameters:
-//   - userId: the ID of the user whose events are to be retrieved.
-//
-// Returns:
-//   - []primitive.M: a slice of events added by the user.
 func GetUserEvents(userId string) []primitive.M {
 	id, err := primitive.ObjectIDFromHex(userId)
 	if err != nil {
@@ -204,14 +149,6 @@ func GetUserEvents(userId string) []primitive.M {
 	return results
 }
 
-// UpdateEvent updates the details of an existing event based on the provided event ID.
-//
-// Parameters:
-//   - eventID: the ID of the event to update.
-//   - event: the updated event information.
-//
-// Returns:
-//   - error: an error if the event cannot be updated.
 func UpdateEvent(eventID string, event models.EventInfo) error {
 
 	id, err := primitive.ObjectIDFromHex(eventID)
@@ -245,13 +182,6 @@ func UpdateEvent(eventID string, event models.EventInfo) error {
 	return nil
 }
 
-// DeleteEvent removes an event from the database based on the provided event ID.
-//
-// Parameters:
-//   - eventId: the ID of the event to delete.
-//
-// Returns:
-//   - void: no return value, but logs an error if the event cannot be deleted.
 func DeleteEvent(eventId string) {
 	id, err := primitive.ObjectIDFromHex(eventId)
 	if err != nil {
