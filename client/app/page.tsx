@@ -1,7 +1,17 @@
 import { Hero, Events } from "@/components/Home";
 import { Footer } from "@/components/shared";
 
-const page = () => {
+const getData = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/event/all`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const page = async () => {
   const events = [
     {
       eventId: "1",
@@ -70,10 +80,13 @@ const page = () => {
     },
   ];
 
+  const data = await getData();
+  console.log(data);
+
   return (
     <div className="w-full flex flex-col items-center">
       <Hero />
-      <Events events={events} />
+      <Events events={data.events} />
       <Footer />
     </div>
   );

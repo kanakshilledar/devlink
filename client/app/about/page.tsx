@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const page = () => {
   const HLT = ({ children }: { children: React.ReactNode }) => {
     return <span className="text-white font-bold">{children}</span>;
@@ -18,6 +20,11 @@ const page = () => {
     <div className="flex justify-center">
       <div className="w-5/6 my-12">
         <div className="flex flex-col gap-6">
+          <Link href="/">
+            <div className="font-bold text-3xl hover:underline cursor-pointer text-neutral-400">
+              &lt; Home
+            </div>
+          </Link>
           <div className="text-5xl font-bold">About Us</div>
           <p className="text-2xl text-justify text-neutral-400">
             Welcome to <HLT>DevLink</HLT>, your go-to platform for discovering

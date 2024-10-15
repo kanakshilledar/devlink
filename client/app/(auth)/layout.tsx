@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Navbar, Footer } from "@/components/shared";
 
 export default function AuthLayout({
   children,
@@ -7,15 +8,8 @@ export default function AuthLayout({
 }) {
   return (
     <section>
-      <nav className="absolute p-8 h-12">
-        <Link href="/" className="text-4xl font-bold">
-          DevLink
-        </Link>
-      </nav>
+      <Navbar />
       {children}
-      <div className="absolute bottom-0 w-full text-center my-6">
-        &lt;footer&gt;
-      </div>
     </section>
   );
 }

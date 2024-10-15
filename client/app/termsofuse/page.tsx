@@ -1,8 +1,15 @@
+import Link from "next/link";
+
 const page = () => {
   return (
     <div className="flex justify-center w-full">
       <div className="w-4/5 my-8">
-        <div className="text-5xl font-bold">Terms of Use:</div>
+        <Link href="/">
+          <div className="font-bold text-3xl hover:underline cursor-pointer text-neutral-400">
+            &lt; Home
+          </div>
+        </Link>
+        <div className="text-5xl font-bold mt-4">Terms of Use:</div>
         <div className="my-6">
           <div className="text-xl font-bold">1. Acceptance of Terms</div>
           <p>
