@@ -29,7 +29,7 @@ const page = () => {
           <p className="text-2xl text-justify text-neutral-400">
             Welcome to <HLT>DevLink</HLT>, your go-to platform for discovering
             the best tech conferences, hackathons, and meetups happening around
-            you. Whether you're a <HLT> tech enthusiast</HLT> looking to
+            you. Whether you&apos;re a <HLT> tech enthusiast</HLT> looking to
             network, learn new skills, or showcase your talent, we aim to make
             it easy for you to find the events that matter to you. Our platform
             allows users to not only find events but also contribute by adding

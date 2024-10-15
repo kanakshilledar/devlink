@@ -18,7 +18,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
-const page = () => {
+const Page = () => {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -98,7 +98,7 @@ const page = () => {
             )}
           />
           <div className="mt-2">
-            Don't have an account? Sign up{" "}
+            Don&apos;t have an account? Sign up{" "}
             <Link href="/signup">
               <u>here</u>
             </Link>
@@ -115,4 +115,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

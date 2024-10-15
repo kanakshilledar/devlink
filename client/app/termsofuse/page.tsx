@@ -72,11 +72,11 @@ const page = () => {
         <div className="my-6">
           <div className="text-xl font-bold">6. Disclaimer of Warranties</div>
           <p>
-            The Website is provided "as is" without any warranties, either
-            express or implied. We do not guarantee the accuracy, reliability,
-            or completeness of any information on the Website, including event
-            details. We are not responsible for any damages resulting from the
-            use of or inability to use the Website.
+            The Website is provided &quot;as is&quot; without any warranties,
+            either express or implied. We do not guarantee the accuracy,
+            reliability, or completeness of any information on the Website,
+            including event details. We are not responsible for any damages
+            resulting from the use of or inability to use the Website.
           </p>
         </div>
         <div className="my-6">

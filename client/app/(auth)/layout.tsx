@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Navbar, Footer } from "@/components/shared";
+import { Navbar } from "@/components/shared";
 
 export default function AuthLayout({
   children,

@@ -18,7 +18,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
-const page = () => {
+const Page = () => {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -151,4 +151,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -1,9 +1,17 @@
 "use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import TypeIt from "typeit-react";
 
 const Hero = () => {
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setToken(token);
+    }
+  }, []);
 
   return (
     <div className="w-full h-screen border-b-2 flex flex-col">
@@ -20,7 +28,7 @@ const Hero = () => {
       <div className="flex flex-col justify-center gap-6 grow px-16">
         <div className="text-5xl md:text-7xl font-bold">DevLink</div>
         <div className="text-2xl md:text-4xl font-semibold">
-          Let's find you a{" "}
+          Let&apos;s find you a{" "}
           <TypeIt
             options={{
               loop: true,
