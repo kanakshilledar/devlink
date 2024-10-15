@@ -1,3 +1,13 @@
+/*
+Package main implements the whole devlink backend.
+It runs the backend on port `8080` and is based on the `net/http` package
+and uses `gorilla/mux`.
+
+Usage:
+	Add the mongoDB connection URL and JWT token KEY in **.env** before running.
+	`$ go run main.go`
+*/
+
 package main
 
 import (
