@@ -37,5 +37,4 @@ This will open the frontend on port `:3000`.
 
 ## Documentation
 
-The documentation can be found in the [docs](docs/pkg/devlink/index.html) directory.
-The contribution guidelines can be found in [CONTRIBUTING.md](CONTRIBUTING.md).
+The documentation can be found in the `docs/` directory.
