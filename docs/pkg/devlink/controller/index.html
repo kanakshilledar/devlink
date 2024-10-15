@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>controller - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.23.1";</script>
+<script src="../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:1234/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:1234/pkg/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:1234/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package controller
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "devlink/controller"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>Package controller handles the main API functionality, including creating users, login, logout,
+and user profile management. The controller interacts with the models and handler packages.
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="index.html#CreateEventHandler">func CreateEventHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#CreateUserHandler">func CreateUserHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#DeleteEventHandler">func DeleteEventHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#GetAllEventsHandler">func GetAllEventsHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#GetOneEventHandler">func GetOneEventHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#GetUserEventHandler">func GetUserEventHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#GetUserHandler">func GetUserHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#LandingPage">func LandingPage(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#LoginHandler">func LoginHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#LogoutHandler">func LogoutHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#UpdateEventHandler">func UpdateEventHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+				
+				<dd><a href="index.html#UpdateUserHandler">func UpdateUserHandler(w http.ResponseWriter, r *http.Request)</a></dd>
+			
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:1234/src/devlink/controller/events.go">events.go</a>
+			
+				<a href="http://localhost:1234/src/devlink/controller/users.go">users.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+			
+			
+			<h2 id="CreateEventHandler">func <a href="http://localhost:1234/src/devlink/controller/events.go?s=1280:1343#L46">CreateEventHandler</a>
+				<a class="permalink" href="index.html#CreateEventHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CreateEventHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="CreateUserHandler">func <a href="http://localhost:1234/src/devlink/controller/users.go?s=985:1047#L23">CreateUserHandler</a>
+				<a class="permalink" href="index.html#CreateUserHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CreateUserHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			<p>CreateUserHandler handles the creation of a new user. It checks if the user already exists
+and inserts the user into the database if they don&apos;t.
+<p>This handler is used for the `/api/createUser` endpoint and expects a POST request with a JSON payload
+containing user information.
+<p>Example JSON request body:
+<pre>{
+  &quot;name&quot;: &quot;John Doe&quot;,
+  &quot;email&quot;: &quot;john.doe@example.com&quot;,
+  &quot;phoneNumber&quot;: &quot;1234567890&quot;,
+  &quot;password&quot;: &quot;password123&quot;,
+  &quot;company&quot;: &quot;Tech Co.&quot;
+}
+</pre>
+<p>Response:
+<ul>
+<li>Success: true if the user was created successfully.
+<li>Message: &quot;User created&quot; or &quot;User already exists&quot; depending on the operation result.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="DeleteEventHandler">func <a href="http://localhost:1234/src/devlink/controller/events.go?s=4919:4982#L190">DeleteEventHandler</a>
+				<a class="permalink" href="index.html#DeleteEventHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func DeleteEventHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="GetAllEventsHandler">func <a href="http://localhost:1234/src/devlink/controller/events.go?s=2297:2361#L85">GetAllEventsHandler</a>
+				<a class="permalink" href="index.html#GetAllEventsHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetAllEventsHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="GetOneEventHandler">func <a href="http://localhost:1234/src/devlink/controller/events.go?s=3310:3373#L124">GetOneEventHandler</a>
+				<a class="permalink" href="index.html#GetOneEventHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetOneEventHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="GetUserEventHandler">func <a href="http://localhost:1234/src/devlink/controller/events.go?s=3811:3875#L145">GetUserEventHandler</a>
+				<a class="permalink" href="index.html#GetUserEventHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetUserEventHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="GetUserHandler">func <a href="http://localhost:1234/src/devlink/controller/users.go?s=4085:4144#L136">GetUserHandler</a>
+				<a class="permalink" href="index.html#GetUserHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetUserHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			<p>GetUserHandler retrieves user information based on the user ID provided in the URL.
+<p>This handler is used for the `/api/user/{id}` endpoint and expects a GET request.
+The user ID is passed as a URL parameter.
+<p>Response:
+<ul>
+<li>Success: true if the user is found.
+<li>User: The user&apos;s profile information (ID, name, email, phone number, company).
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="LandingPage">func <a href="http://localhost:1234/src/devlink/controller/events.go?s=265:321#L9">LandingPage</a>
+				<a class="permalink" href="index.html#LandingPage">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func LandingPage(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="LoginHandler">func <a href="http://localhost:1234/src/devlink/controller/users.go?s=2095:2152#L61">LoginHandler</a>
+				<a class="permalink" href="index.html#LoginHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func LoginHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			<p>LoginHandler handles user login by validating credentials and generating a JWT token.
+<p>This handler is used for the `/api/login` endpoint and expects a POST request with a JSON payload
+containing login credentials (email and password).
+<p>Example JSON request body:
+<pre>{
+  &quot;email&quot;: &quot;john.doe@example.com&quot;,
+  &quot;password&quot;: &quot;password123&quot;
+}
+</pre>
+<p>Response:
+<ul>
+<li>Success: true if login is successful.
+<li>Token: A JWT token if the login is successful.
+<li>Success: false if login fails.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="LogoutHandler">func <a href="http://localhost:1234/src/devlink/controller/users.go?s=3392:3450#L114">LogoutHandler</a>
+				<a class="permalink" href="index.html#LogoutHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func LogoutHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			<p>LogoutHandler handles user logout. It invalidates the current session and returns a success message.
+<p>This handler is used for the `/api/logout` endpoint and expects a GET request.
+<p>Response:
+<ul>
+<li>Success: true.
+<li>Message: &quot;logout successful&quot;.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="UpdateEventHandler">func <a href="http://localhost:1234/src/devlink/controller/events.go?s=4311:4374#L166">UpdateEventHandler</a>
+				<a class="permalink" href="index.html#UpdateEventHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func UpdateEventHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="UpdateUserHandler">func <a href="http://localhost:1234/src/devlink/controller/users.go?s=5113:5175#L174">UpdateUserHandler</a>
+				<a class="permalink" href="index.html#UpdateUserHandler">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func UpdateUserHandler(w <a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#ResponseWriter">ResponseWriter</a>, r *<a href="http://localhost:1234/pkg/net/http/">http</a>.<a href="http://localhost:1234/pkg/net/http/#Request">Request</a>)</pre>
+			<p>UpdateUserHandler updates user information based on the user ID provided in the URL.
+<p>This handler is used for the `/api/updateUser/{id}` endpoint and expects a PUT request
+with a JSON payload containing the updated user information.
+<p>Example JSON request body:
+<pre>{
+  &quot;name&quot;: &quot;Jane Doe&quot;,
+  &quot;email&quot;: &quot;jane.doe@example.com&quot;,
+  &quot;phoneNumber&quot;: &quot;9876543210&quot;,
+  &quot;company&quot;: &quot;New Tech Co.&quot;
+}
+</pre>
+<p>Response:
+<ul>
+<li>Success: true if the update was successful.
+<li>Message: A message indicating the result of the update.
+</ul>
+
+			
+			
+
+		
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.23.1.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:1234/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>
