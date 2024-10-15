@@ -1,3 +1,13 @@
+/*
+Package main implements the whole devlink backend.
+It runs the backend on port `8080` and is based on the `net/http` package
+and uses `gorilla/mux`.
+
+Usage:
+	Add the mongoDB connection URL and JWT token KEY in **.env** before running.
+	`$ go run main.go`
+*/
+
 package main
 
 import (
@@ -12,17 +22,12 @@ var db *mongo.Client
 
 func main() {
 	r := router.Router()
-	// Handle OPTIONS requests
-	r.Methods(http.MethodOptions).HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-		w.WriteHeader(http.StatusOK)
-	})
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowCredentials: true,
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowCredentials: false,
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization"},
+		MaxAge:           8000,
 		// Enable Debugging for testing, consider disabling in production
 		Debug: true,
 	})

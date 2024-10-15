@@ -1,3 +1,5 @@
+// Package handler manages user-related operations such as creating, logging in, and updating users.
+// It interacts with the MongoDB database and handles JWT token generation for authentication.
 package handler
 
 import (
@@ -17,12 +19,16 @@ import (
 	"time"
 )
 
-var usersCollection *mongo.Collection // users DATABASE
-var secretKey = []byte(os.Getenv("KEY"))
-var signedToken string
+// MongoDB collection to store users.
+var usersCollection *mongo.Collection
 
+// Secret key used for signing JWT tokens.
+var secretKey = []byte(os.Getenv("KEY"))
+
+// USERS Name of the MongoDB collection to store users.
 const USERS = "Users"
 
+// init initializes the handler by connecting to the MongoDB database and loading environment variables.
 func init() {
 	err := godotenv.Load()
 	if err != nil {
@@ -43,16 +49,40 @@ func init() {
 	secretKey = []byte(key)
 }
 
+// hashPassword generates a hashed version of the given password using bcrypt.
+//
+// Parameters:
+//   - password: the raw password to be hashed.
+//
+// Returns:
+//   - string: the hashed password.
+//   - error: an error if hashing fails.
 func hashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 10)
 	return string(bytes), err
 }
 
+// checkPasswordHash compares a raw password with its hashed version to verify if they match.
+//
+// Parameters:
+//   - password: the raw password provided by the user.
+//   - hash: the hashed password stored in the database.
+//
+// Returns:
+//   - bool: true if the password matches the hash, false otherwise.
 func checkPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
 }
 
+// CheckUserExists checks if a user with the provided email already exists in the database.
+//
+// Parameters:
+//   - email: the email to check for existence.
+//
+// Returns:
+//   - bool: true if the user exists, false otherwise.
+//   - error: any error encountered during the database query.
 func CheckUserExists(email string) (bool, error) {
 	filter := bson.D{
 		{Key: "email", Value: email},
@@ -67,6 +97,13 @@ func CheckUserExists(email string) (bool, error) {
 	return true, nil
 }
 
+// InsertUser inserts a new user into the MongoDB collection after hashing their password.
+//
+// Parameters:
+//   - user: the user object containing user details to be inserted.
+//
+// Returns:
+//   - *mongo.InsertOneResult: result of the insert operation, including the inserted document ID.
 func InsertUser(user models.User) *mongo.InsertOneResult {
 	user.Id = primitive.NewObjectID()
 	//fmt.Printf("[+] Inserted User %T\n", user.Password)
@@ -84,6 +121,14 @@ func InsertUser(user models.User) *mongo.InsertOneResult {
 	return insertOne
 }
 
+// createToken generates a signed JWT token for the user, using the provided email as the subject.
+//
+// Parameters:
+//   - email: the email of the user for which to generate the token.
+//
+// Returns:
+//   - string: the signed JWT token.
+//   - error: any error encountered during the token generation.
 func createToken(email string) (string, error) {
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub": email,
@@ -99,6 +144,16 @@ func createToken(email string) (string, error) {
 	return tokenString, nil
 }
 
+// Login checks the provided login credentials, verifies the password, and generates a JWT token
+// if the login is successful.
+//
+// Parameters:
+//   - info: the login object containing the user's email and password.
+//
+// Returns:
+//   - bool: true if the login is successful, false otherwise.
+//   - string: the generated JWT token if the login is successful.
+//   - error: any error encountered during the process.
 func Login(info models.Login) (bool, string, error) {
 	filter := bson.D{
 		{Key: "email", Value: info.Email},
@@ -132,6 +187,13 @@ func Login(info models.Login) (bool, string, error) {
 	return response, signedToken, nil
 }
 
+// GetUser retrieves a user from the MongoDB collection based on their unique ID.
+//
+// Parameters:
+//   - userId: the ID of the user to be retrieved.
+//
+// Returns:
+//   - models.User: the user object corresponding to the given ID.
 func GetUser(userId string) models.User {
 	id, err := primitive.ObjectIDFromHex(userId)
 	if err != nil {
@@ -146,6 +208,14 @@ func GetUser(userId string) models.User {
 	return results
 }
 
+// UpdateUser updates the details of a user in the MongoDB collection based on their unique ID.
+//
+// Parameters:
+//   - userId: the ID of the user to be updated.
+//   - user: the user object containing the updated information.
+//
+// Returns:
+//   - error: any error encountered during the update process.
 func UpdateUser(userId string, user models.User) error {
 	id, err := primitive.ObjectIDFromHex(userId)
 	if err != nil {
