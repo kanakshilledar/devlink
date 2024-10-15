@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>handler - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.23.1";</script>
+<script src="../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:1234/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:1234/pkg/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:1234/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package handler
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "devlink/handler"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>Package handler provides functionalities for managing events in a MongoDB database.
+This package includes methods for user authentication, event creation, retrieval, updating, and deletion.
+<p>Package handler manages user-related operations such as creating, logging in, and updating users.
+It interacts with the MongoDB database and handles JWT token generation for authentication.
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+				<dd><a href="index.html#pkg-constants">Constants</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#CheckEventExists">func CheckEventExists(eventName string) (bool, error)</a></dd>
+			
+				
+				<dd><a href="index.html#CheckUserExists">func CheckUserExists(email string) (bool, error)</a></dd>
+			
+				
+				<dd><a href="index.html#DeleteEvent">func DeleteEvent(eventId string)</a></dd>
+			
+				
+				<dd><a href="index.html#FetchUserNameFromEmail">func FetchUserNameFromEmail(email string) (string, error)</a></dd>
+			
+				
+				<dd><a href="index.html#GetAllEvents">func GetAllEvents() []primitive.M</a></dd>
+			
+				
+				<dd><a href="index.html#GetOneEvent">func GetOneEvent(eventId string) models.EventInfo</a></dd>
+			
+				
+				<dd><a href="index.html#GetUser">func GetUser(userId string) models.User</a></dd>
+			
+				
+				<dd><a href="index.html#GetUserEvents">func GetUserEvents(userId string) []primitive.M</a></dd>
+			
+				
+				<dd><a href="index.html#InsertEvent">func InsertEvent(event models.EventInfo, userEmail string) (interface{}, error)</a></dd>
+			
+				
+				<dd><a href="index.html#InsertUser">func InsertUser(user models.User) *mongo.InsertOneResult</a></dd>
+			
+				
+				<dd><a href="index.html#Login">func Login(info models.Login) (bool, string, error)</a></dd>
+			
+				
+				<dd><a href="index.html#UpdateEvent">func UpdateEvent(eventID string, event models.EventInfo) error</a></dd>
+			
+				
+				<dd><a href="index.html#UpdateUser">func UpdateUser(userId string, user models.User) error</a></dd>
+			
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:1234/src/devlink/handler/events.go">events.go</a>
+			
+				<a href="http://localhost:1234/src/devlink/handler/users.go">users.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+			<h2 id="pkg-constants">Constants</h2>
+			
+				
+				<pre>const <span id="DATABASE">DATABASE</span> = &#34;devlink&#34;</pre>
+			
+				
+				<pre>const <span id="EVENTS">EVENTS</span> = &#34;Events&#34;</pre>
+			
+				<p>USERS Name of the MongoDB collection to store users.
+
+				<pre>const <span id="USERS">USERS</span> = &#34;Users&#34;</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="CheckEventExists">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=2487:2540#L71">CheckEventExists</a>
+				<a class="permalink" href="index.html#CheckEventExists">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CheckEventExists(eventName <a href="http://localhost:1234/pkg/builtin/#string">string</a>) (<a href="http://localhost:1234/pkg/builtin/#bool">bool</a>, <a href="http://localhost:1234/pkg/builtin/#error">error</a>)</pre>
+			<p>CheckEventExists checks if an event with the specified event name already exists.
+<p>Parameters:
+<ul>
+<li>eventName: the name of the event to check for existence.
+</ul>
+<p>Returns:
+<ul>
+<li>bool: true if the event exists, false otherwise.
+<li>error: an error if the database query fails.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="CheckUserExists">func <a href="http://localhost:1234/src/devlink/handler/users.go?s=2493:2541#L76">CheckUserExists</a>
+				<a class="permalink" href="index.html#CheckUserExists">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CheckUserExists(email <a href="http://localhost:1234/pkg/builtin/#string">string</a>) (<a href="http://localhost:1234/pkg/builtin/#bool">bool</a>, <a href="http://localhost:1234/pkg/builtin/#error">error</a>)</pre>
+			<p>CheckUserExists checks if a user with the provided email already exists in the database.
+<p>Parameters:
+<ul>
+<li>email: the email to check for existence.
+</ul>
+<p>Returns:
+<ul>
+<li>bool: true if the user exists, false otherwise.
+<li>error: any error encountered during the database query.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="DeleteEvent">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=7054:7086#L245">DeleteEvent</a>
+				<a class="permalink" href="index.html#DeleteEvent">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func DeleteEvent(eventId <a href="http://localhost:1234/pkg/builtin/#string">string</a>)</pre>
+			<p>DeleteEvent removes an event from the database based on the provided event ID.
+<p>Parameters:
+<ul>
+<li>eventId: the ID of the event to delete.
+</ul>
+<p>Returns:
+<ul>
+<li>void: no return value, but logs an error if the event cannot be deleted.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="FetchUserNameFromEmail">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=1941:1998#L54">FetchUserNameFromEmail</a>
+				<a class="permalink" href="index.html#FetchUserNameFromEmail">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func FetchUserNameFromEmail(email <a href="http://localhost:1234/pkg/builtin/#string">string</a>) (<a href="http://localhost:1234/pkg/builtin/#string">string</a>, <a href="http://localhost:1234/pkg/builtin/#error">error</a>)</pre>
+			<p>FetchUserNameFromEmail retrieves the user&apos;s name associated with the provided email.
+<p>Parameters:
+<ul>
+<li>email: the email of the user whose name is to be fetched.
+</ul>
+<p>Returns:
+<ul>
+<li>string: the name of the user.
+<li>error: an error if the user is not found or if an issue occurs during the database query.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="GetAllEvents">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=3892:3925#L121">GetAllEvents</a>
+				<a class="permalink" href="index.html#GetAllEvents">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetAllEvents() []<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/">primitive</a>.<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/#M">M</a></pre>
+			<p>GetAllEvents retrieves all events from the database.
+<p>Returns:
+<ul>
+<li>[]primitive.M: a slice of all events.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="GetOneEvent">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=4660:4709#L154">GetOneEvent</a>
+				<a class="permalink" href="index.html#GetOneEvent">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetOneEvent(eventId <a href="http://localhost:1234/pkg/builtin/#string">string</a>) <a href="../models/index.html">models</a>.<a href="../models/index.html#EventInfo">EventInfo</a></pre>
+			<p>GetOneEvent retrieves a single event based on the provided event ID.
+<p>Parameters:
+<ul>
+<li>eventId: the ID of the event to retrieve.
+</ul>
+<p>Returns:
+<ul>
+<li>models.EventInfo: the requested event.
+<li>error: an error if the event cannot be found.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="GetUser">func <a href="http://localhost:1234/src/devlink/handler/users.go?s=5721:5760#L187">GetUser</a>
+				<a class="permalink" href="index.html#GetUser">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetUser(userId <a href="http://localhost:1234/pkg/builtin/#string">string</a>) <a href="../models/index.html">models</a>.<a href="../models/index.html#User">User</a></pre>
+			<p>GetUser retrieves a user from the MongoDB collection based on their unique ID.
+<p>Parameters:
+<ul>
+<li>userId: the ID of the user to be retrieved.
+</ul>
+<p>Returns:
+<ul>
+<li>models.User: the user object corresponding to the given ID.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="GetUserEvents">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=5225:5272#L175">GetUserEvents</a>
+				<a class="permalink" href="index.html#GetUserEvents">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func GetUserEvents(userId <a href="http://localhost:1234/pkg/builtin/#string">string</a>) []<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/">primitive</a>.<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/#M">M</a></pre>
+			<p>GetUserEvents retrieves all events added by a specific user based on user ID.
+<p>Parameters:
+<ul>
+<li>userId: the ID of the user whose events are to be retrieved.
+</ul>
+<p>Returns:
+<ul>
+<li>[]primitive.M: a slice of events added by the user.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="InsertEvent">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=3192:3271#L94">InsertEvent</a>
+				<a class="permalink" href="index.html#InsertEvent">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func InsertEvent(event <a href="../models/index.html">models</a>.<a href="../models/index.html#EventInfo">EventInfo</a>, userEmail <a href="http://localhost:1234/pkg/builtin/#string">string</a>) (interface{}, <a href="http://localhost:1234/pkg/builtin/#error">error</a>)</pre>
+			<p>InsertEvent adds a new event to the database and associates it with the user identified by the provided email.
+<p>Parameters:
+<ul>
+<li>event: the event to be inserted.
+<li>userEmail: the email of the user adding the event.
+</ul>
+<p>Returns:
+<ul>
+<li>interface{}: the inserted document&apos;s ID.
+<li>error: an error if the event cannot be inserted.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="InsertUser">func <a href="http://localhost:1234/src/devlink/handler/users.go?s=3110:3166#L97">InsertUser</a>
+				<a class="permalink" href="index.html#InsertUser">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func InsertUser(user <a href="../models/index.html">models</a>.<a href="../models/index.html#User">User</a>) *<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/mongo/">mongo</a>.<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/mongo/#InsertOneResult">InsertOneResult</a></pre>
+			<p>InsertUser inserts a new user into the MongoDB collection after hashing their password.
+<p>Parameters:
+<ul>
+<li>user: the user object containing user details to be inserted.
+</ul>
+<p>Returns:
+<ul>
+<li>*mongo.InsertOneResult: result of the insert operation, including the inserted document ID.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Login">func <a href="http://localhost:1234/src/devlink/handler/users.go?s=4696:4747#L147">Login</a>
+				<a class="permalink" href="index.html#Login">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Login(info <a href="../models/index.html">models</a>.<a href="../models/index.html#Login">Login</a>) (<a href="http://localhost:1234/pkg/builtin/#bool">bool</a>, <a href="http://localhost:1234/pkg/builtin/#string">string</a>, <a href="http://localhost:1234/pkg/builtin/#error">error</a>)</pre>
+			<p>Login checks the provided login credentials, verifies the password, and generates a JWT token
+if the login is successful.
+<p>Parameters:
+<ul>
+<li>info: the login object containing the user&apos;s email and password.
+</ul>
+<p>Returns:
+<ul>
+<li>bool: true if the login is successful, false otherwise.
+<li>string: the generated JWT token if the login is successful.
+<li>error: any error encountered during the process.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="UpdateEvent">func <a href="http://localhost:1234/src/devlink/handler/events.go?s=5980:6042#L205">UpdateEvent</a>
+				<a class="permalink" href="index.html#UpdateEvent">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func UpdateEvent(eventID <a href="http://localhost:1234/pkg/builtin/#string">string</a>, event <a href="../models/index.html">models</a>.<a href="../models/index.html#EventInfo">EventInfo</a>) <a href="http://localhost:1234/pkg/builtin/#error">error</a></pre>
+			<p>UpdateEvent updates the details of an existing event based on the provided event ID.
+<p>Parameters:
+<ul>
+<li>eventID: the ID of the event to update.
+<li>event: the updated event information.
+</ul>
+<p>Returns:
+<ul>
+<li>error: an error if the event cannot be updated.
+</ul>
+
+			
+			
+
+		
+			
+			
+			<h2 id="UpdateUser">func <a href="http://localhost:1234/src/devlink/handler/users.go?s=6334:6388#L209">UpdateUser</a>
+				<a class="permalink" href="index.html#UpdateUser">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func UpdateUser(userId <a href="http://localhost:1234/pkg/builtin/#string">string</a>, user <a href="../models/index.html">models</a>.<a href="../models/index.html#User">User</a>) <a href="http://localhost:1234/pkg/builtin/#error">error</a></pre>
+			<p>UpdateUser updates the details of a user in the MongoDB collection based on their unique ID.
+<p>Parameters:
+<ul>
+<li>userId: the ID of the user to be updated.
+<li>user: the user object containing the updated information.
+</ul>
+<p>Returns:
+<ul>
+<li>error: any error encountered during the update process.
+</ul>
+
+			
+			
+
+		
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.23.1.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:1234/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>
