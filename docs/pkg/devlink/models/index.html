@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>models - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.23.1";</script>
+<script src="../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:1234/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:1234/pkg/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:1234/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package models
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "devlink/models"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>Package models defines the data models used in the application.
+These models represent various entities like users, events, login data,
+and response structures, which are stored in a MongoDB database
+using BSON (Binary JSON) format.
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="index.html#EventInfo">type EventInfo</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Login">type Login</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Response">type Response</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#User">type User</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:1234/src/devlink/models/models.go">models.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="EventInfo">type <a href="http://localhost:1234/src/devlink/models/models.go?s=1790:2613#L31">EventInfo</a>
+				<a class="permalink" href="index.html#EventInfo">&#xb6;</a>
+				
+				
+			</h2>
+			<p>EventInfo represents an event in the application.
+Fields:
+<ul>
+<li>EventId: MongoDB ObjectID for the event, automatically generated.
+<li>EventName: The name of the event (required).
+<li>StartDate: The start date of the event.
+<li>EndDate: The end date of the event.
+<li>Description: A description of the event.
+<li>EventType: The type/category of the event.
+<li>EventLink: A link for the event (required).
+<li>Company: The company hosting or related to the event.
+<li>Location: The location where the event takes place.
+<li>AddedByID: MongoDB ObjectID of the user who added the event.
+<li>AddedByName: The name of the user who added the event.
+</ul>
+
+			<pre>type EventInfo struct {
+<span id="EventInfo.EventId"></span>    EventId     <a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/">primitive</a>.<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/#ObjectID">ObjectID</a> `json:&#34;eventID,omitempty&#34; bson:&#34;_id,omitempty&#34;`
+<span id="EventInfo.EventName"></span>    EventName   <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;eventName&#34; bson:&#34;eventName&#34; validate:&#34;required&#34;`
+<span id="EventInfo.StartDate"></span>    StartDate   <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;startDate&#34; bson:&#34;startDate&#34;`
+<span id="EventInfo.EndDate"></span>    EndDate     <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;endDate&#34; bson:&#34;endDate&#34;`
+<span id="EventInfo.Description"></span>    Description <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;description&#34; bson:&#34;description&#34;`
+<span id="EventInfo.EventType"></span>    EventType   <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;eventType&#34; bson:&#34;eventType&#34;`
+<span id="EventInfo.EventLink"></span>    EventLink   <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;eventLink&#34; bson:&#34;eventLink&#34; validate:&#34;required&#34;`
+<span id="EventInfo.Company"></span>    Company     <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;company&#34; bson:&#34;company&#34;`
+<span id="EventInfo.Location"></span>    Location    <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;location&#34; bson:&#34;location&#34;`
+<span id="EventInfo.AddedByID"></span>    AddedByID   <a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/">primitive</a>.<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/#ObjectID">ObjectID</a> `json:&#34;addedByID&#34; bson:&#34;addedByID&#34;`
+<span id="EventInfo.AddedByName"></span>    AddedByName <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;addedByName&#34; bson:&#34;addedByName&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Login">type <a href="http://localhost:1234/src/devlink/models/models.go?s=2763:2851#L49">Login</a>
+				<a class="permalink" href="index.html#Login">&#xb6;</a>
+				
+				
+			</h2>
+			<p>Login represents the data required for user login.
+Fields:
+<ul>
+<li>Email: The email address of the user.
+<li>Password: The user&apos;s password.
+</ul>
+
+			<pre>type Login struct {
+<span id="Login.Email"></span>    Email    <a href="http://localhost:1234/pkg/builtin/#string">string</a> `json:&#34;email&#34;`
+<span id="Login.Password"></span>    Password <a href="http://localhost:1234/pkg/builtin/#string">string</a> `json:&#34;password&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Response">type <a href="http://localhost:1234/src/devlink/models/models.go?s=3058:3148#L58">Response</a>
+				<a class="permalink" href="index.html#Response">&#xb6;</a>
+				
+				
+			</h2>
+			<p>Response represents a standard API response structure.
+Fields:
+<ul>
+<li>Success: Indicates whether the operation was successful or not.
+<li>Message: A message detailing the result of the operation.
+</ul>
+
+			<pre>type Response struct {
+<span id="Response.Success"></span>    Success <a href="http://localhost:1234/pkg/builtin/#bool">bool</a>   `json:&#34;success&#34;`
+<span id="Response.Message"></span>    Message <a href="http://localhost:1234/pkg/builtin/#string">string</a> `json:&#34;message&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="User">type <a href="http://localhost:1234/src/devlink/models/models.go?s=705:1110#L9">User</a>
+				<a class="permalink" href="index.html#User">&#xb6;</a>
+				
+				
+			</h2>
+			<p>User represents a user of the application.
+Fields:
+<ul>
+<li>Id: MongoDB ObjectID for the user, automatically generated.
+<li>Name: The user&apos;s full name.
+<li>PhoneNumber: The user&apos;s phone number.
+<li>Email: The user&apos;s email address, used for login and contact.
+<li>Password: The user&apos;s hashed password.
+<li>Company: The name of the company the user is associated with.
+</ul>
+
+			<pre>type User struct {
+<span id="User.Id"></span>    Id          <a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/">primitive</a>.<a href="http://localhost:1234/pkg/go.mongodb.org/mongo-driver/bson/primitive/#ObjectID">ObjectID</a> `json:&#34;id,omitempty&#34; bson:&#34;_id&#34;`
+<span id="User.Name"></span>    Name        <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;name&#34; bson:&#34;name&#34;`
+<span id="User.PhoneNumber"></span>    PhoneNumber <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;phoneNumber&#34; bson:&#34;phoneNumber&#34;`
+<span id="User.Email"></span>    Email       <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;email&#34; bson:&#34;email&#34;`
+<span id="User.Password"></span>    Password    <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;password&#34; bson:&#34;password&#34;`
+<span id="User.Company"></span>    Company     <a href="http://localhost:1234/pkg/builtin/#string">string</a>             `json:&#34;company&#34; bson:&#34;company&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.23.1.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:1234/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>
