@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -21,6 +22,7 @@ import { useToast } from "@/hooks/use-toast";
 const Page = () => {
   const { toast } = useToast();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
@@ -35,6 +37,7 @@ const Page = () => {
 
   const onSubmit = async (values: z.infer<typeof SignUpSchema>) => {
     console.log(values);
+    setLoading(true);
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/createUser`, {
         method: "POST",
@@ -44,7 +47,8 @@ const Page = () => {
         body: JSON.stringify(values),
       });
       const data = await res.json();
-      if (data) {
+      if (data.success) {
+        setLoading(false);
         console.log(data);
         toast({
           title: "Account created successfully",
@@ -54,8 +58,19 @@ const Page = () => {
         setTimeout(() => {
           router.push("/signin");
         }, 3000);
+      } else {
+        setLoading(false);
+        toast({
+          title: "Account creation failed",
+          description: data.message,
+        });
       }
     } catch (error) {
+      setLoading(false);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+      });
       console.error(error);
     }
   };
@@ -140,10 +155,11 @@ const Page = () => {
             </Link>
           </div>
           <Button
-            className="px-4 py-6 border-2 bg-transparent hover:bg-white hover:text-black cursor-pointer text-center rounded-none text-lg"
+            className="px-4 py-6 border-2 bg-transparent hover:bg-white hover:text-black cursor-pointer text-center rounded-none text-lg disabled:hover:bg-transparent"
             type="submit"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? "Loading..." : "Sign Up"}
           </Button>
         </form>
       </Form>

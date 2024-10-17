@@ -9,8 +9,8 @@ export interface EventCardType {
   eventType: string;
   company: string;
   location: string;
-  link: string;
-  addedBy: string;
+  eventLink: string;
+  addedByName: string;
 }
 
 export const EventSchema = z.object({
@@ -31,7 +31,7 @@ export const SignInSchema = z.object({
 
 export const SignUpSchema = z.object({
   name: z.string().min(3),
-  phoneNumber: z.string().min(10),
+  phoneNumber: z.string().min(10).optional().or(z.literal("")),
   email: z.string().email(),
   password: z.string().min(6),
   company: z.string().min(3),

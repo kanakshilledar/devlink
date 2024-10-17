@@ -3,7 +3,9 @@ import { Footer } from "@/components/shared";
 
 const getData = async () => {
   try {
-    const res = await fetch(`${process.env.API_URL}/event/all`);
+    const res = await fetch(`${process.env.API_URL}/event/all`, {
+      cache: "no-store",
+    });
     const data = await res.json();
     return data;
   } catch (error) {

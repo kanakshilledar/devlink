@@ -203,7 +203,6 @@ const Events = ({ events }: EventProps) => {
                                     }
                                     onSelect={field.onChange}
                                     disabled={(date) => date < new Date()}
-                                    initialFocus
                                   />
                                 </PopoverContent>
                               </Popover>
@@ -251,7 +250,6 @@ const Events = ({ events }: EventProps) => {
                                     }
                                     onSelect={field.onChange}
                                     disabled={(date) => date < new Date()}
-                                    initialFocus
                                   />
                                 </PopoverContent>
                               </Popover>

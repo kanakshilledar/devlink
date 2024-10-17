@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -21,6 +22,7 @@ import { useToast } from "@/hooks/use-toast";
 const Page = () => {
   const { toast } = useToast();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -32,6 +34,7 @@ const Page = () => {
 
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     console.log(values);
+    setLoading(true);
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
         method: "POST",
@@ -42,6 +45,7 @@ const Page = () => {
       });
       const data = await res.json();
       if (data.success) {
+        setLoading(false);
         console.log(data);
         toast({
           title: "Successfully logged in",
@@ -52,6 +56,7 @@ const Page = () => {
           router.push("/");
         }, 2000);
       } else {
+        setLoading(false);
         toast({
           variant: "destructive",
           title: "Invalid credentials",
@@ -59,6 +64,11 @@ const Page = () => {
         });
       }
     } catch (error) {
+      setLoading(false);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+      });
       console.error(error);
     }
   };
@@ -106,8 +116,9 @@ const Page = () => {
           <Button
             className="px-4 py-6 border-2 bg-transparent hover:bg-white hover:text-black cursor-pointer text-center text-lg"
             type="submit"
+            disabled={loading}
           >
-            Sign In
+            {loading ? "Loading..." : "Sign In"}
           </Button>
         </form>
       </Form>
