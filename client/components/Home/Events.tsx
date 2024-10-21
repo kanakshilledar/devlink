@@ -44,14 +44,19 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
 interface EventProps {
+  success: boolean;
+  name: string;
   events: EventCardType[];
 }
 
-const Events = ({ events }: EventProps) => {
+const Events = ({ success, events, name }: EventProps) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  if (name === "") {
+    localStorage.removeItem("token");
+  }
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
     defaultValues: {

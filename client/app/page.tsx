@@ -2,15 +2,12 @@ import { Hero, Events } from "@/components/Home";
 import { Footer } from "@/components/shared";
 
 const getData = async () => {
-  try {
-    const res = await fetch(`${process.env.API_URL}/event/all`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
+  const res = await fetch(`${process.env.API_URL}/event/all`, {
+    cache: "no-store",
+  });
+  const data = await res.json();
+  console.log(data);
+  return data;
 };
 
 const page = async () => {
@@ -19,7 +16,7 @@ const page = async () => {
   return (
     <div className="w-full flex flex-col items-center">
       <Hero />
-      <Events events={data.events} />
+      <Events {...data} />
       <Footer />
     </div>
   );
