@@ -49,7 +49,7 @@ interface EventProps {
   events: EventCardType[];
 }
 
-const Events = ({ success, events, name }: EventProps) => {
+const Events = ({ events, name }: EventProps) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const token =
