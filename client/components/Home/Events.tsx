@@ -54,9 +54,6 @@ const Events = ({ events, name }: EventProps) => {
   const { toast } = useToast();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
-  if (name === "") {
-    localStorage.removeItem("token");
-  }
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
     defaultValues: {
