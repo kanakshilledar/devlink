@@ -74,8 +74,8 @@ const Events = ({ events, name }: EventProps) => {
 
   const onSubmit = async (values: z.infer<typeof EventSchema>) => {
     setLoading(true);
-    const newStartDate = values.startDate.toLocaleDateString();
-    const newEndDate = values.endDate.toLocaleDateString();
+    const newStartDate = format(values.startDate, "dd/MM/yyyy");
+    const newEndDate = format(values.endDate, "dd/MM/yyyy");
     const finalValues = {
       ...values,
       startDate: newStartDate,
@@ -373,7 +373,7 @@ const Events = ({ events, name }: EventProps) => {
           </Dialog>
         )}
       </div>
-      {events ? (
+      {events.length > 0 ? (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 min-[1600px]:grid-cols-4 gap-8">
           {events.map((event) => (
             <Card key={event.eventId} {...event} />
