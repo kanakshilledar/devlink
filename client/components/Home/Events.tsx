@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { EventCardType } from "@/lib/types";
@@ -52,8 +52,12 @@ interface EventProps {
 const Events = ({ events, name }: EventProps) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
+
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
     defaultValues: {
