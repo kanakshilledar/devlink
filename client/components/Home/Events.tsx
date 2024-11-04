@@ -49,7 +49,7 @@ interface EventProps {
   events: EventCardType[];
 }
 
-const Events = ({ events, name }: EventProps) => {
+const Events = ({ events }: EventProps) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const [token, setToken] = useState<string | null>(null);
@@ -375,7 +375,7 @@ const Events = ({ events, name }: EventProps) => {
       </div>
       {events.length > 0 ? (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 min-[1600px]:grid-cols-4 gap-8">
-          {events.map((event) => (
+          {events.map((event: any) => (
             <Card key={event.eventId} {...event} />
           ))}
         </div>
