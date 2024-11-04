@@ -375,7 +375,7 @@ const Events = ({ events }: EventProps) => {
       </div>
       {events.length > 0 ? (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 min-[1600px]:grid-cols-4 gap-8">
-          {events.map((event: any) => (
+          {events.map((event: EventCardType) => (
             <Card key={event.eventId} {...event} />
           ))}
         </div>
