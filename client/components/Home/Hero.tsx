@@ -19,7 +19,7 @@ const Hero = ({ name }: { name: string }) => {
       <div className="flex justify-end px-12 py-6">
         {token ? (
           <div className="text-xl">
-            {greetings[Math.random() * greetings.length]}{" "}
+            {greetings[Math.floor(Math.random() * greetings.length)]}{" "}
             <span className="font-bold">{name}!</span>
           </div>
         ) : (
