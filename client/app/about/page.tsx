@@ -5,10 +5,18 @@ const page = () => {
     return <span className="text-white font-bold">{children}</span>;
   };
 
-  const ContributorCard = ({ name, role }: { name: string; role: string }) => {
+  const ContributorCard = ({
+    name,
+    role,
+    profileImageUrl,
+  }: {
+    name: string;
+    role: string;
+    profileImageUrl: string;
+  }) => {
     return (
       <div className="flex flex-col gap-6 justify-center items-center border-2 rounded-lg p-6 min-w-64">
-        <div className="w-44 h-48 bg-neutral-500" />
+        <img src={profileImageUrl} alt={`${name}'s profile picture`} className="w-44 h-48 rounded-lg" />
         <div className="flex flex-col items-center">
           <div className="text-2xl font-bold">{name}</div>
           <div className="text-xl text-neutral-400">{role}</div>
@@ -16,6 +24,7 @@ const page = () => {
       </div>
     );
   };
+
   return (
     <div className="flex justify-center">
       <div className="w-5/6 my-12">
@@ -42,9 +51,21 @@ const page = () => {
         <div className="flex flex-col gap-6 my-8">
           <div className="text-4xl font-bold">Maintainers:</div>
           <div className="flex items-center justify-center gap-6">
-            <ContributorCard name="Ajay ram" role="Frontend Engineer" />
-            <ContributorCard name="Kanak Shilledar" role="Backend Engineer" />
-            <ContributorCard name="Gaurav" role="Backend Engineer" />
+            <ContributorCard
+              name="Ajay Ram"
+              role="Frontend"
+              profileImageUrl="https://avatars.githubusercontent.com/u/92621098?v=4"
+            />
+            <ContributorCard
+              name="Kanak Shilledar"
+              role="Backend"
+              profileImageUrl="https://avatars.githubusercontent.com/u/56501211?v=4"
+            />
+            <ContributorCard
+              name="Gaurav"
+              role="Backend"
+              profileImageUrl="https://avatars.githubusercontent.com/u/112763891?v=4"
+            />
           </div>
         </div>
       </div>
