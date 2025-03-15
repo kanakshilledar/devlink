@@ -15,7 +15,7 @@ const Footer = () => {
             event discovery simple!
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+{/*         <div className="flex flex-col gap-2">
           <div
             className="hover:underline cursor-pointer text-xl"
             onClick={() => {
@@ -32,7 +32,7 @@ const Footer = () => {
           >
             Terms of Use
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="border-t py-4 w-full text-center">
         <div className="text-neutral-300 text-sm">
